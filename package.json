@@ -1,0 +1,12 @@
+{
+  "name": "cyber-feed-pages",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node src/build.mjs"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2",
+    "rss-parser": "^3.13.0"
+  }
+}
