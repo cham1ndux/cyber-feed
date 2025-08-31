@@ -8,116 +8,91 @@
   :root{
     --bg:#0b1220; --card:#0f172a; --text:#e5e7eb; --muted:#9aa4b2; --ring:#1f2937;
     --pill:#111827; --shadow:0 1px 2px rgba(0,0,0,.5),0 6px 18px rgba(0,0,0,.35);
+    --accent:#6366f1;
+    --sev-critical:#ef4444; --sev-high:#f59e0b; --sev-medium:#eab308;
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--text);
        font:500 16px/1.5 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Inter}
 
-  /* ===== Sticky header (fixed layout) ===== */
-  .topbar{
-    position:fixed; top:0; left:0; right:0;
-    background:var(--bg); border-bottom:1px solid var(--ring);
-    display:flex; flex-direction:column; gap:6px;
-    padding:10px 16px; z-index:50; backdrop-filter:blur(8px);
-  }
-  .brand{font-weight:800; font-size:20px}
-  .updated{font-size:13px; color:var(--muted)}
-  .toolbar{display:flex; flex-wrap:wrap; gap:8px; align-items:center}
-  .input,.select,.toggle{
-    background:var(--card); color:var(--text);
-    border:1px solid var(--ring); border-radius:10px; padding:10px 12px
-  }
-  .input{flex:1 1 260px; min-width:220px}
+  /* ===== header ===== */
+  .topbar{position:fixed;top:0;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--ring);
+    display:flex;flex-direction:column;gap:6px;padding:10px 16px;z-index:50;backdrop-filter:blur(8px)}
+  .brand{font-weight:800;font-size:20px}
+  .updated{font-size:13px;color:var(--muted)}
+  .toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .input,.select,.toggle{background:var(--card);color:var(--text);border:1px solid var(--ring);border-radius:10px;padding:10px 12px}
+  .input{flex:1 1 260px;min-width:220px}
   .select{flex:0 0 180px}
-  .toggle{flex:0 0 auto; border-radius:999px; cursor:pointer}
+  .toggle{flex:0 0 auto;border-radius:999px;cursor:pointer}
 
-  .container{max-width:980px; margin:140px auto 40px; padding:0 16px} /* push below taller header */
-  .muted{color:var(--muted); font-size:13px}
+  .container{max-width:980px;margin:140px auto 40px;padding:0 16px}
+  .muted{color:var(--muted);font-size:13px}
 
-  /* ===== Keywords dropdown ===== */
-  details.keywrap{margin:8px 0 18px; border:1px solid var(--ring); border-radius:12px; background:var(--card)}
-  details.keywrap>summary{
-    list-style:none; cursor:pointer; padding:10px 12px; display:flex; align-items:center; gap:8px; border-radius:12px
-  }
+  /* ===== keywords ===== */
+  details.keywrap{margin:8px 0 18px;border:1px solid var(--ring);border-radius:12px;background:var(--card)}
+  details.keywrap>summary{list-style:none;cursor:pointer;padding:10px 12px;display:flex;align-items:center;gap:8px;border-radius:12px}
   details[open].keywrap>summary{border-bottom:1px solid var(--ring)}
-  .keywords{display:flex; flex-wrap:wrap; gap:8px; padding:12px}
-  .pill{border:1px solid var(--ring); background:var(--pill); border-radius:999px; padding:6px 10px;
-        font-size:12px; cursor:pointer; user-select:none}
-  .pill.active{outline:2px solid #6366f1}
+  .keywords{display:flex;flex-wrap:wrap;gap:8px;padding:12px}
+  .pill{border:1px solid var(--ring);background:var(--pill);border-radius:999px;padding:6px 10px;font-size:12px;cursor:pointer;user-select:none}
+  .pill.active{outline:2px solid var(--accent)}
 
-  /* ===== Cards & groups ===== */
-  .group-date{margin:22px 0 12px; font-weight:800}
-  .group-date.badge{display:inline-block; border-left:4px solid #6366f1; padding:4px 10px; border-radius:8px}
-  .card{
-    background:var(--card); border:1px solid var(--ring); border-radius:14px; padding:14px 16px; margin:10px 0;
-    box-shadow:var(--shadow); transition:transform .12s ease, box-shadow .12s ease
-  }
-  .card:hover{transform:translateY(-1px)}
-  .meta{display:flex; align-items:center; gap:10px; font-size:12px; color:var(--muted); margin-bottom:6px}
-  .meta img{width:14px; height:14px; border-radius:3px}
-  .title{font-size:18px; font-weight:800; line-height:1.35; margin:0; display:flex; gap:10px; align-items:center; flex-wrap:wrap}
-  .click-here{
-    font-size:14px; font-weight:600; margin-left:4px; color:var(--text);
-    background:var(--ring); padding:3px 8px; border-radius:6px; text-decoration:none; transition:background .2s,color .2s
-  }
-  .click-here:hover{background:#6366f1; color:#fff}
+  /* ===== date headers (sticky) ===== */
+  .group-date{position:sticky;top:112px;z-index:5;margin:22px 0 10px}
+  .group-date .divider{display:flex;align-items:center;gap:10px}
+  .group-date .bar{width:4px;height:18px;background:var(--accent);border-radius:6px}
+  .group-date .label{font-weight:800;color:var(--text);opacity:.95}
 
-  /* ============ Mobile polish ============ */
-  @media (max-width: 768px) {
-    .topbar { gap: 8px; padding: 8px 12px; }
-    .brand { font-size: 18px; }
-    .updated { font-size: 12px; }
-    .toolbar { gap: 6px; }
-    .input, .select, .toggle { padding: 10px 12px; border-radius: 12px; }
-    .input { flex: 1 1 100%; min-width: 0; } /* full width search */
-    .select { flex: 1 1 160px; }             /* wider tap target */
-    .container { margin: 128px auto 40px; padding: 0 12px; }
-    .card { padding: 12px; border-radius: 16px; }
-    .title { font-size: 17px; gap: 8px; }
-    .click-here { padding: 6px 10px; border-radius: 999px; } /* pill look */
-    details.keywrap { margin: 6px 0 14px; }
-    .keywords { gap: 6px; padding: 10px; }
-    .pill { padding: 6px 10px; }
-  }
-  @media (max-width: 420px) {
-    .updated { display: none; }               /* reduce header clutter */
-    .select { flex: 1 1 100%; }               /* dropdown spans full width */
-    .title { font-size: 16px; }
-  }
+  /* ===== cards ===== */
+  .card{background:var(--card);border:1px solid var(--ring);border-radius:18px;padding:14px 16px;margin:12px 0;
+    box-shadow:var(--shadow);transition:transform .12s ease,box-shadow .12s ease,border-color .12s ease; cursor:pointer; outline:none}
+  .card:hover{transform:translateY(-2px);border-color:var(--accent);background:rgba(99,102,241,.05)}
+  .card:focus{box-shadow:0 0 0 2px var(--accent)}
+  .meta{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted);margin-bottom:6px}
+  .title{font-size:17px;font-weight:800;line-height:1.35;margin:0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .click-here{font-size:13px;font-weight:600;margin-left:4px;color:var(--text);background:var(--ring);padding:3px 8px;border-radius:6px;text-decoration:none}
+  .click-here:hover{background:var(--accent);color:#fff}
 
-  /* Optional compact mode: one-line clamp (toggle by adding .compact to <body>) */
-  body.compact .title {
-    display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;
-    overflow: hidden; white-space: normal;
+  /* badges */
+  .badges{display:inline-flex;gap:6px}
+  .badge{font-size:11px;padding:2px 6px;border-radius:999px;border:1px solid var(--ring);background:#0f172a88}
+  .badge-cve{border-color:#94a3b8}
+  .badge-critical{background:rgba(239,68,68,.12);border-color:var(--sev-critical);color:#fecaca}
+  .badge-high{background:rgba(245,158,11,.12);border-color:var(--sev-high);color:#fde68a}
+  .badge-medium{background:rgba(234,179,8,.12);border-color:var(--sev-medium);color:#fef08a}
+  .sev-critical{border-left:4px solid var(--sev-critical)}
+  .sev-high{border-left:4px solid var(--sev-high)}
+  .sev-medium{border-left:4px solid var(--sev-medium)}
+
+  /* ===== mobile polish ===== */
+  @media (max-width:768px){
+    .topbar{gap:8px;padding:8px 12px}
+    .brand{font-size:18px}
+    .updated{font-size:12px}
+    .toolbar{gap:6px}
+    .input,.select,.toggle{padding:10px 12px;border-radius:12px}
+    .input{flex:1 1 100%;min-width:0}
+    .select{flex:1 1 160px}
+    .container{margin:128px auto 40px;padding:0 12px}
+    .card{padding:12px;border-radius:18px}
+    .title{font-size:16px}
+  }
+  @media (max-width:420px){
+    .updated{display:none}
+    .select{flex:1 1 100%}
   }
 
-  /* Reduce motion preferences */
-  @media (prefers-reduced-motion: reduce) {
-    .card, .topbar { transition: none; }
-  }
-
-  /* Sticky FAB (scroll-to-top) */
-  .fab {
-    position: fixed; right: 16px; bottom: 16px; z-index: 60;
-    background: var(--ring); color: var(--text); border: 1px solid var(--ring);
-    width: 46px; height: 46px; border-radius: 999px;
-    display: grid; place-items: center; text-decoration: none;
-    box-shadow: var(--shadow);
-    opacity: 0; pointer-events: none; transform: translateY(8px);
-    transition: opacity .15s ease, transform .15s ease;
-  }
-  .fab.show { opacity: .95; pointer-events: auto; transform: translateY(0); }
-  .fab:hover { background: #6366f1; color: #fff; }
-
-  /* Auto-hide header on scroll (mobile) */
-  @media (max-width: 768px) {
-    .topbar.hide { transform: translateY(-100%); transition: transform .2s ease; }
-    .topbar { transition: transform .2s ease; }
-  }
+  /* scroll-to-top FAB */
+  .fab{position:fixed;right:16px;bottom:16px;z-index:60;background:var(--ring);color:var(--text);border:1px solid var(--ring);
+    width:46px;height:46px;border-radius:999px;display:grid;place-items:center;text-decoration:none;box-shadow:var(--shadow);
+    opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .15s ease,transform .15s ease}
+  .fab.show{opacity:.95;pointer-events:auto;transform:translateY(0)}
+  .fab:hover{background:var(--accent);color:#fff}
+  @media (max-width:768px){.topbar.hide{transform:translateY(-100%);transition:transform .2s ease}.topbar{transition:transform .2s ease}}
 </style>
 </head>
 <body>
-  <!-- ===== Header ===== -->
+  <!-- header -->
   <div class="topbar">
     <div class="brand">{{TITLE}}</div>
     <div class="updated">Updated: {{UPDATED}} • Items: {{COUNT}}</div>
@@ -128,7 +103,7 @@
     </div>
   </div>
 
-  <!-- ===== Main ===== -->
+  <!-- main -->
   <div class="container">
     <details class="keywrap">
       <summary><span class="muted">Keywords</span></summary>
@@ -138,55 +113,37 @@
     <div id="list">{{ITEMS}}</div>
   </div>
 
-  <!-- Scroll-to-top button -->
   <a href="#" id="fabTop" class="fab" aria-label="Scroll to top">↑</a>
 
 <script>
-/* ---------- Theme ---------- */
+/* theme toggle */
 const root=document.documentElement;
 const saved=localStorage.getItem("theme"); if(saved) root.setAttribute("data-theme",saved);
-document.getElementById("theme").onclick=()=>{const nxt=root.getAttribute("data-theme")==="dark"?"light":"dark";
-  root.setAttribute("data-theme",nxt); localStorage.setItem("theme",nxt);};
+document.getElementById("theme").onclick=()=>{const nxt=root.getAttribute("data-theme")==="dark"?"light":"dark"; root.setAttribute("data-theme",nxt); localStorage.setItem("theme",nxt);};
 
-/* ---------- Enhance cards ---------- */
+/* init cards, sources */
 const list=document.getElementById('list');
 const cards=[...list.querySelectorAll('.card')];
 const sources=new Set();
 cards.forEach(card=>{
-  const link=card.dataset.link||'';
-  try{
-    const host=new URL(link).hostname;
-    const img=document.createElement('img'); img.loading="lazy"; img.decoding="async";
-    img.src=`https://www.google.com/s2/favicons?domain=${host}`;
-    card.querySelector('.meta').prepend(img);
-  }catch(e){}
   const s=card.dataset.source||''; if(s) sources.add(s);
 });
-const sel=document.getElementById('source'); [...sources].sort().forEach(s=>{
-  const o=document.createElement('option'); o.value=s; o.textContent=s; sel.appendChild(o);
+const sel=document.getElementById('source'); [...sources].sort().forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=s;sel.appendChild(o);});
+
+/* whole-card click */
+cards.forEach(c=>{
+  c.addEventListener('click',e=>{
+    const a=e.target.closest('a'); if(a) return; // let native link work
+    const url=c.dataset.link; if(url) window.open(url,'_blank','noopener');
+  });
 });
 
-/* ---------- Date grouping (timezone-correct) ---------- */
+/* sticky date groups */
 function sameDay(a,b){return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate();}
-function dayLabel(d){
-  const t=new Date(); const y=new Date(); y.setDate(t.getDate()-1);
-  if (sameDay(d,t)) return "Today";
-  if (sameDay(d,y)) return "Yesterday";
-  return d.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});
-}
-(function group(){
-  let last='';
-  cards.forEach(card=>{
-    const d=new Date(card.dataset.date||Date.now());
-    const lbl=dayLabel(d);
-    if(lbl!==last){
-      const h=document.createElement('div'); h.className='group-date badge'; h.textContent=lbl;
-      list.insertBefore(h,card); last=lbl;
-    }
-  });
-})();
+function dayLabel(d){const t=new Date(), y=new Date(); y.setDate(t.getDate()-1); if(sameDay(d,t))return "Today"; if(sameDay(d,y))return "Yesterday"; return d.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});}
+(function group(){let last='';cards.forEach(card=>{const d=new Date(card.dataset.date||Date.now());const lbl=dayLabel(d);if(lbl!==last){const wrap=document.createElement('div');wrap.className='group-date';wrap.innerHTML=`<div class="divider"><span class="bar"></span><span class="label">${lbl}</span></div>`;list.insertBefore(wrap,card);last=lbl;}})})();
 
-/* ---------- Filters (search/source/keyword) ---------- */
+/* filters */
 const q=document.getElementById('q'); const kw=document.getElementById('kw');
 function apply(){
   const query=(q.value||'').trim().toLowerCase(); const src=sel.value;
@@ -198,7 +155,6 @@ function apply(){
     const okK=tags.length===0||tags.some(t=>text.includes(t));
     card.style.display=(okQ&&okS&&okK)?'':'none';
   });
-  // hide empty group headers
   [...document.querySelectorAll('.group-date')].forEach(h=>{
     let n=h.nextElementSibling, any=false;
     while(n && !n.classList.contains('group-date')){
@@ -209,48 +165,20 @@ function apply(){
   });
 }
 q.addEventListener('input',apply); sel.addEventListener('change',apply);
-kw?.querySelectorAll('.pill').forEach(p=>{const k=(p.textContent||'').trim().toLowerCase(); p.dataset.k=k;
-  p.addEventListener('click',()=>{p.classList.toggle('active'); apply();});});
+kw?.querySelectorAll('.pill').forEach(p=>{const k=(p.textContent||'').trim().toLowerCase(); p.dataset.k=k; p.addEventListener('click',()=>{p.classList.toggle('active'); apply();});});
 apply();
 
-/* ===== Scroll-to-top FAB ===== */
-const fab = document.getElementById('fabTop');
-function onScrollFAB() {
-  if (window.scrollY > 600) fab.classList.add('show'); else fab.classList.remove('show');
-}
-window.addEventListener('scroll', onScrollFAB, { passive: true });
-fab.addEventListener('click', (e) => {
-  e.preventDefault();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-/* ===== Auto-hide header on scroll (mobile) ===== */
-let lastY = 0;
-const topbar = document.querySelector('.topbar');
-function onScrollHeader() {
-  const y = window.scrollY;
-  const down = y > lastY;
-  const small = window.matchMedia('(max-width: 768px)').matches;
-  if (small && y > 80) {
-    if (down) topbar.classList.add('hide'); else topbar.classList.remove('hide');
-  } else {
-    topbar.classList.remove('hide');
-  }
-  lastY = y;
-}
-window.addEventListener('scroll', onScrollHeader, { passive: true });
-
-/* ===== Optional: Compact mode via localStorage =====
-   Enable: localStorage.setItem('compact','1')
-   Disable: localStorage.removeItem('compact')
-*/
-if (localStorage.getItem('compact') === '1') document.body.classList.add('compact');
+/* FAB + auto-hide header */
+const fab=document.getElementById('fabTop'); function onScrollFAB(){ if (window.scrollY>600) fab.classList.add('show'); else fab.classList.remove('show');}
+window.addEventListener('scroll',onScrollFAB,{passive:true}); fab.addEventListener('click',e=>{e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'});});
+let lastY=0; const topbar=document.querySelector('.topbar'); function onScrollHeader(){const y=window.scrollY; const down=y>lastY; const small=window.matchMedia('(max-width: 768px)').matches; if(small&&y>80){ if(down) topbar.classList.add('hide'); else topbar.classList.remove('hide'); } else { topbar.classList.remove('hide'); } lastY=y;}
+window.addEventListener('scroll',onScrollHeader,{passive:true});
 </script>
 
-<!-- Card markup expected from the builder:
-<div class="card" data-source="BleepingComputer" data-date="2025-08-30T21:52:51Z" data-link="https://...">
+<!-- Card markup injected by build:
+<div class="card sev-high" data-source="BleepingComputer" data-date="2025-08-30T21:52:51Z" data-link="https://...">
   <div class="meta">BleepingComputer — 30/08/2025, 21:52:51</div>
-  <h2 class="title">Headline text <a href="https://..." class="click-here" target="_blank" rel="noopener">Click here</a></h2>
+  <h2 class="title">Headline <span class="badges"><span class="badge badge-cve">CVE-2025-12345</span><span class="badge badge-high">High</span></span> <a href="..." class="click-here" target="_blank" rel="noopener">Click here</a></h2>
 </div>
 -->
 </body>
