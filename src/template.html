@@ -61,6 +61,59 @@
     background:var(--ring); padding:3px 8px; border-radius:6px; text-decoration:none; transition:background .2s,color .2s
   }
   .click-here:hover{background:#6366f1; color:#fff}
+
+  /* ============ Mobile polish ============ */
+  @media (max-width: 768px) {
+    .topbar { gap: 8px; padding: 8px 12px; }
+    .brand { font-size: 18px; }
+    .updated { font-size: 12px; }
+    .toolbar { gap: 6px; }
+    .input, .select, .toggle { padding: 10px 12px; border-radius: 12px; }
+    .input { flex: 1 1 100%; min-width: 0; } /* full width search */
+    .select { flex: 1 1 160px; }             /* wider tap target */
+    .container { margin: 128px auto 40px; padding: 0 12px; }
+    .card { padding: 12px; border-radius: 16px; }
+    .title { font-size: 17px; gap: 8px; }
+    .click-here { padding: 6px 10px; border-radius: 999px; } /* pill look */
+    details.keywrap { margin: 6px 0 14px; }
+    .keywords { gap: 6px; padding: 10px; }
+    .pill { padding: 6px 10px; }
+  }
+  @media (max-width: 420px) {
+    .updated { display: none; }               /* reduce header clutter */
+    .select { flex: 1 1 100%; }               /* dropdown spans full width */
+    .title { font-size: 16px; }
+  }
+
+  /* Optional compact mode: one-line clamp (toggle by adding .compact to <body>) */
+  body.compact .title {
+    display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;
+    overflow: hidden; white-space: normal;
+  }
+
+  /* Reduce motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .card, .topbar { transition: none; }
+  }
+
+  /* Sticky FAB (scroll-to-top) */
+  .fab {
+    position: fixed; right: 16px; bottom: 16px; z-index: 60;
+    background: var(--ring); color: var(--text); border: 1px solid var(--ring);
+    width: 46px; height: 46px; border-radius: 999px;
+    display: grid; place-items: center; text-decoration: none;
+    box-shadow: var(--shadow);
+    opacity: 0; pointer-events: none; transform: translateY(8px);
+    transition: opacity .15s ease, transform .15s ease;
+  }
+  .fab.show { opacity: .95; pointer-events: auto; transform: translateY(0); }
+  .fab:hover { background: #6366f1; color: #fff; }
+
+  /* Auto-hide header on scroll (mobile) */
+  @media (max-width: 768px) {
+    .topbar.hide { transform: translateY(-100%); transition: transform .2s ease; }
+    .topbar { transition: transform .2s ease; }
+  }
 </style>
 </head>
 <body>
@@ -84,6 +137,9 @@
 
     <div id="list">{{ITEMS}}</div>
   </div>
+
+  <!-- Scroll-to-top button -->
+  <a href="#" id="fabTop" class="fab" aria-label="Scroll to top">↑</a>
 
 <script>
 /* ---------- Theme ---------- */
@@ -156,6 +212,39 @@ q.addEventListener('input',apply); sel.addEventListener('change',apply);
 kw?.querySelectorAll('.pill').forEach(p=>{const k=(p.textContent||'').trim().toLowerCase(); p.dataset.k=k;
   p.addEventListener('click',()=>{p.classList.toggle('active'); apply();});});
 apply();
+
+/* ===== Scroll-to-top FAB ===== */
+const fab = document.getElementById('fabTop');
+function onScrollFAB() {
+  if (window.scrollY > 600) fab.classList.add('show'); else fab.classList.remove('show');
+}
+window.addEventListener('scroll', onScrollFAB, { passive: true });
+fab.addEventListener('click', (e) => {
+  e.preventDefault();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+/* ===== Auto-hide header on scroll (mobile) ===== */
+let lastY = 0;
+const topbar = document.querySelector('.topbar');
+function onScrollHeader() {
+  const y = window.scrollY;
+  const down = y > lastY;
+  const small = window.matchMedia('(max-width: 768px)').matches;
+  if (small && y > 80) {
+    if (down) topbar.classList.add('hide'); else topbar.classList.remove('hide');
+  } else {
+    topbar.classList.remove('hide');
+  }
+  lastY = y;
+}
+window.addEventListener('scroll', onScrollHeader, { passive: true });
+
+/* ===== Optional: Compact mode via localStorage =====
+   Enable: localStorage.setItem('compact','1')
+   Disable: localStorage.removeItem('compact')
+*/
+if (localStorage.getItem('compact') === '1') document.body.classList.add('compact');
 </script>
 
 <!-- Card markup expected from the builder:
