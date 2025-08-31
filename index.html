@@ -10,7 +10,6 @@
     --pill:#111827; --shadow:0 1px 2px rgba(0,0,0,.5),0 6px 18px rgba(0,0,0,.35);
     --accent:#6366f1;
     --sev-critical:#ef4444; --sev-high:#f59e0b; --sev-medium:#eab308;
-    --sticky-offset: 112px; /* JS will update this based on header height */
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--text);
@@ -30,25 +29,6 @@
   .container{max-width:980px;margin:140px auto 40px;padding:0 16px}
   .muted{color:var(--muted);font-size:13px}
 
-  /* ===== floating current date chip ===== */
-  .current-date{
-    position: fixed;
-    left: 16px;
-    top: calc(var(--sticky-offset) - 34px);
-    z-index: 40;
-    display: none;
-    padding: 6px 10px;
-    font-weight: 700;
-    font-size: 13px;
-    border-radius: 10px;
-    border: 1px solid var(--ring);
-    background: var(--card);
-    color: var(--text);
-    box-shadow: var(--shadow);
-    opacity: .95;
-  }
-  .current-date.show{ display:inline-block; }
-
   /* ===== keywords ===== */
   details.keywrap{margin:8px 0 18px;border:1px solid var(--ring);border-radius:12px;background:var(--card)}
   details.keywrap>summary{list-style:none;cursor:pointer;padding:10px 12px;display:flex;align-items:center;gap:8px;border-radius:12px}
@@ -57,8 +37,11 @@
   .pill{border:1px solid var(--ring);background:var(--pill);border-radius:999px;padding:6px 10px;font-size:12px;cursor:pointer;user-select:none}
   .pill.active{outline:2px solid var(--accent)}
 
-  /* ===== date headers (section sticky) ===== */
-  .group-date{position:sticky;top:var(--sticky-offset);z-index:5;margin:22px 0 10px;transition:top .15s ease}
+  /* ===== date headers (scroll normally) ===== */
+  .group-date{
+    position: static;
+    margin: 22px 0 10px;
+  }
   .group-date .divider{display:flex;align-items:center;gap:10px}
   .group-date .bar{width:4px;height:18px;background:var(--accent);border-radius:6px}
   .group-date .label{font-weight:800;color:var(--text);opacity:.95}
@@ -115,16 +98,13 @@
   <!-- header -->
   <div class="topbar">
     <div class="brand">Cybersecurity Feed</div>
-    <div class="updated">Updated: 01/09/2025, 00:45:51 • Items: 150</div>
+    <div class="updated">Updated: 01/09/2025, 00:54:05 • Items: 150</div>
     <div class="toolbar">
       <input id="q" class="input" placeholder="Search title/summary… (e.g., CVE-2025, Fortinet, RCE)">
       <select id="source" class="select"><option value="">All sources</option></select>
       <button id="theme" class="toggle" title="Toggle theme">🌓 Theme</button>
     </div>
   </div>
-
-  <!-- floating current date chip -->
-  <div id="currentDate" class="current-date" aria-live="polite"></div>
 
   <!-- main -->
   <div class="container">
@@ -1643,16 +1623,6 @@ const root=document.documentElement;
 const saved=localStorage.getItem("theme"); if(saved) root.setAttribute("data-theme",saved);
 document.getElementById("theme").onclick=()=>{const nxt=root.getAttribute("data-theme")==="dark"?"light":"dark"; root.setAttribute("data-theme",nxt); localStorage.setItem("theme",nxt);};
 
-/* dynamic sticky offset based on header height */
-function updateStickyOffset(){
-  const topbar=document.querySelector('.topbar'); if(!topbar) return;
-  const h=topbar.getBoundingClientRect().height;
-  root.style.setProperty('--sticky-offset', (h + 16) + 'px'); // + breathing room
-}
-window.addEventListener('resize', updateStickyOffset);
-window.addEventListener('load', updateStickyOffset);
-updateStickyOffset();
-
 /* init cards, sources */
 const list=document.getElementById('list');
 const cards=[...list.querySelectorAll('.card')];
@@ -1665,12 +1635,12 @@ const sel=document.getElementById('source'); [...sources].sort().forEach(s=>{con
 /* whole-card click */
 cards.forEach(c=>{
   c.addEventListener('click',e=>{
-    const a=e.target.closest('a'); if(a) return; // keep native link
+    const a=e.target.closest('a'); if(a) return;
     const url=c.dataset.link; if(url) window.open(url,'_blank','noopener');
   });
 });
 
-/* section date headers */
+/* insert date headers (normal scrolling) */
 function sameDay(a,b){return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate();}
 function dayLabel(d){const t=new Date(), y=new Date(); y.setDate(t.getDate()-1); if(sameDay(d,t))return "Today"; if(sameDay(d,y))return "Yesterday"; return d.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});}
 (function group(){let last='';cards.forEach(card=>{const d=new Date(card.dataset.date||Date.now());const lbl=dayLabel(d);if(lbl!==last){const wrap=document.createElement('div');wrap.className='group-date';wrap.innerHTML=`<div class="divider"><span class="bar"></span><span class="label">${lbl}</span></div>`;list.insertBefore(wrap,card);last=lbl;}})})();
@@ -1687,7 +1657,6 @@ function apply(){
     const okK=tags.length===0||tags.some(t=>text.includes(t));
     card.style.display=(okQ&&okS&&okK)?'':'none';
   });
-  // hide empty date headers
   [...document.querySelectorAll('.group-date')].forEach(h=>{
     let n=h.nextElementSibling, any=false;
     while(n && !n.classList.contains('group-date')){
@@ -1709,50 +1678,6 @@ fab.addEventListener('click',e=>{e.preventDefault(); window.scrollTo({top:0,beha
 let lastY=0; const topbar=document.querySelector('.topbar');
 function onScrollHeader(){const y=window.scrollY; const down=y>lastY; const small=window.matchMedia('(max-width: 768px)').matches; if(small&&y>80){ if(down) topbar.classList.add('hide'); else topbar.classList.remove('hide'); } else { topbar.classList.remove('hide'); } lastY=y;}
 window.addEventListener('scroll',onScrollHeader,{passive:true});
-
-/* ===== floating current date chip that updates while scrolling ===== */
-const dateChip=document.getElementById('currentDate');
-const labels=[...document.querySelectorAll('.group-date .label')];
-
-function makeObserver(){
-  // Build with current sticky offset
-  const offset=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--sticky-offset'))||100;
-  if (!labels.length) return;
-
-  const io=new IntersectionObserver((entries)=>{
-    // Find best candidate near the top
-    const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio);
-    let text=null;
-    if (visible[0]) {
-      text=visible[0].target.textContent.trim();
-    } else {
-      // Fallback: closest label above the offset
-      let best=null, bestDist=Infinity;
-      labels.forEach(s=>{
-        const r=s.getBoundingClientRect();
-        const dist=Math.abs(r.top - offset);
-        if (r.top <= offset && dist < bestDist) { best=s; bestDist=dist; }
-      });
-      text=best ? best.textContent.trim() : null;
-    }
-    if (text) { dateChip.textContent=text; dateChip.classList.add('show'); }
-    else { dateChip.classList.remove('show'); }
-  }, { root:null, rootMargin:`-${offset+4}px 0px -80% 0px`, threshold:[0,0.25,0.5,0.75,1] });
-
-  labels.forEach(s=>io.observe(s));
-}
-
-// Recompute observer when header height changes
-window.addEventListener('load', makeObserver);
-window.addEventListener('resize', ()=>{ makeObserver(); });
-makeObserver();
 </script>
-
-<!-- Card markup injected by build:
-<div class="card sev-high" data-source="BleepingComputer" data-date="2025-08-30T21:52:51Z" data-link="https://...">
-  <div class="meta">BleepingComputer — 30/08/2025, 21:52:51</div>
-  <h2 class="title">Headline <span class="badges"><span class="badge badge-cve">CVE-2025-12345</span><span class="badge badge-high">High</span></span> <a href="..." class="click-here" target="_blank" rel="noopener">Click here</a></h2>
-</div>
--->
 </body>
 </html>
