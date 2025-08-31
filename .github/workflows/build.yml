@@ -4,6 +4,10 @@ on:
     - cron: "0 * * * *"
   workflow_dispatch:
 
+# 👇 this line is critical
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,10 +18,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - run: npm install            # or npm ci if you add a lockfile later
+      - run: npm install
       - run: npm run build
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages     # 👈 ensure it creates/pushes this branch
           publish_dir: dist
