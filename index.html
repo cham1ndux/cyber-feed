@@ -12,59 +12,70 @@
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--text);
        font:500 16px/1.5 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Inter}
-  .topbar{
-    position:fixed;inset:0 0 auto 0;background:var(--bg);border-bottom:1px solid var(--ring);
-    display:flex;gap:12px;align-items:center;padding:14px 16px;z-index:50;backdrop-filter:blur(8px)
-  }
-  .brand{font-weight:800;font-size:20px}
-  .spacer{flex:1}
-  .input,.select,.toggle{
-    background:var(--card);color:var(--text);border:1px solid var(--ring);border-radius:10px;padding:10px 12px
-  }
-  .toggle{cursor:pointer}
-  .container{max-width:980px;margin:96px auto 40px;padding:0 16px}
-  .muted{color:var(--muted);font-size:13px}
 
-  /* Keywords dropdown */
-  details.keywrap{margin:8px 0 18px;border:1px solid var(--ring);border-radius:12px;background:var(--card)}
-  details.keywrap>summary{
-    list-style:none;cursor:pointer;padding:10px 12px;display:flex;align-items:center;gap:8px;border-radius:12px
+  /* ===== Sticky header (fixed layout) ===== */
+  .topbar{
+    position:fixed; top:0; left:0; right:0;
+    background:var(--bg); border-bottom:1px solid var(--ring);
+    display:flex; flex-direction:column; gap:6px;
+    padding:10px 16px; z-index:50; backdrop-filter:blur(8px);
   }
-  details.keywrap[open]>summary{border-bottom:1px solid var(--ring)}
-  .keywords{display:flex;flex-wrap:wrap;gap:8px;padding:12px}
-  .pill{border:1px solid var(--ring);background:var(--pill);border-radius:999px;padding:6px 10px;
-        font-size:12px;cursor:pointer;user-select:none}
+  .brand{font-weight:800; font-size:20px}
+  .updated{font-size:13px; color:var(--muted)}
+  .toolbar{display:flex; flex-wrap:wrap; gap:8px; align-items:center}
+  .input,.select,.toggle{
+    background:var(--card); color:var(--text);
+    border:1px solid var(--ring); border-radius:10px; padding:10px 12px
+  }
+  .input{flex:1 1 260px; min-width:220px}
+  .select{flex:0 0 180px}
+  .toggle{flex:0 0 auto; border-radius:999px; cursor:pointer}
+
+  .container{max-width:980px; margin:140px auto 40px; padding:0 16px} /* push below taller header */
+  .muted{color:var(--muted); font-size:13px}
+
+  /* ===== Keywords dropdown ===== */
+  details.keywrap{margin:8px 0 18px; border:1px solid var(--ring); border-radius:12px; background:var(--card)}
+  details.keywrap>summary{
+    list-style:none; cursor:pointer; padding:10px 12px; display:flex; align-items:center; gap:8px; border-radius:12px
+  }
+  details[open].keywrap>summary{border-bottom:1px solid var(--ring)}
+  .keywords{display:flex; flex-wrap:wrap; gap:8px; padding:12px}
+  .pill{border:1px solid var(--ring); background:var(--pill); border-radius:999px; padding:6px 10px;
+        font-size:12px; cursor:pointer; user-select:none}
   .pill.active{outline:2px solid #6366f1}
 
-  /* Cards & groups */
-  .group-date{margin:22px 0 12px;font-weight:800}
-  .group-date.badge{display:inline-block;border-left:4px solid #6366f1;padding:4px 10px;border-radius:8px}
+  /* ===== Cards & groups ===== */
+  .group-date{margin:22px 0 12px; font-weight:800}
+  .group-date.badge{display:inline-block; border-left:4px solid #6366f1; padding:4px 10px; border-radius:8px}
   .card{
-    background:var(--card);border:1px solid var(--ring);border-radius:14px;padding:14px 16px;margin:10px 0;
-    box-shadow:var(--shadow);transition:transform .12s ease,box-shadow .12s ease
+    background:var(--card); border:1px solid var(--ring); border-radius:14px; padding:14px 16px; margin:10px 0;
+    box-shadow:var(--shadow); transition:transform .12s ease, box-shadow .12s ease
   }
   .card:hover{transform:translateY(-1px)}
-  .meta{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted);margin-bottom:6px}
-  .meta img{width:14px;height:14px;border-radius:3px}
-  .title{font-size:18px;font-weight:800;line-height:1.35;margin:0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .meta{display:flex; align-items:center; gap:10px; font-size:12px; color:var(--muted); margin-bottom:6px}
+  .meta img{width:14px; height:14px; border-radius:3px}
+  .title{font-size:18px; font-weight:800; line-height:1.35; margin:0; display:flex; gap:10px; align-items:center; flex-wrap:wrap}
   .click-here{
-    font-size:14px;font-weight:600;margin-left:4px;color:var(--text);
-    background:var(--ring);padding:3px 8px;border-radius:6px;text-decoration:none;transition:background .2s,color .2s
+    font-size:14px; font-weight:600; margin-left:4px; color:var(--text);
+    background:var(--ring); padding:3px 8px; border-radius:6px; text-decoration:none; transition:background .2s,color .2s
   }
-  .click-here:hover{background:#6366f1;color:#fff}
+  .click-here:hover{background:#6366f1; color:#fff}
 </style>
 </head>
 <body>
-  <!-- Header -->
+  <!-- ===== Header ===== -->
   <div class="topbar">
     <div class="brand">Cybersecurity Feed</div>
-    <div class="muted">Updated: 31/08/2025, 21:39:30 • Items: 150</div>
-    <div class="spacer"></div>
-    <input id="q" class="input" placeholder="Search title/summary… (e.g., CVE-2025, Fortinet, RCE)">
-    <select id="source" class="select"><option value="">All sources</option></select>
-    <button id="theme" class="toggle" title="Toggle theme">🌓 Theme</button>
+    <div class="updated">Updated: 31/08/2025, 21:54:06 • Items: 150</div>
+    <div class="toolbar">
+      <input id="q" class="input" placeholder="Search title/summary… (e.g., CVE-2025, Fortinet, RCE)">
+      <select id="source" class="select"><option value="">All sources</option></select>
+      <button id="theme" class="toggle" title="Toggle theme">🌓 Theme</button>
+    </div>
   </div>
 
+  <!-- ===== Main ===== -->
   <div class="container">
     <details class="keywrap">
       <summary><span class="muted">Keywords</span></summary>
@@ -111,6 +122,10 @@
   <div class="meta">The Hacker News — 29/08/2025, 18:42:00</div>
   <h2 class="title">Abandoned Sogou Zhuyin Update Server Hijacked, Weaponized in Taiwan Espionage Campaign <a href="https://thehackernews.com/2025/08/abandoned-sogou-zhuyin-update-server.html" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
 </div>
+<div class="card" data-source="darkreading" data-date="2025-08-29T13:01:00.000Z" data-link="https://www.darkreading.com/vulnerabilities-threats/proof-concept-15-minutes-ai-turbocharges-exploitation">
+  <div class="meta">darkreading — 29/08/2025, 18:31:00</div>
+  <h2 class="title">Proof-of-Concept in 15 Minutes? AI Turbocharges Exploitation <a href="https://www.darkreading.com/vulnerabilities-threats/proof-concept-15-minutes-ai-turbocharges-exploitation" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
+</div>
 <div class="card" data-source="SecurityWeek" data-date="2025-08-29T12:40:57.000Z" data-link="https://www.securityweek.com/google-confirms-workspace-accounts-also-hit-in-salesforce-salesloft-drift-data-theft-campaign/">
   <div class="meta">SecurityWeek — 29/08/2025, 18:10:57</div>
   <h2 class="title">Google Confirms Workspace Accounts Also Hit in Salesforce–Salesloft Drift Data Theft Campaign <a href="https://www.securityweek.com/google-confirms-workspace-accounts-also-hit-in-salesforce-salesloft-drift-data-theft-campaign/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
@@ -138,6 +153,18 @@
 <div class="card" data-source="BleepingComputer" data-date="2025-08-28T22:09:24.000Z" data-link="https://www.bleepingcomputer.com/news/security/google-warns-salesloft-breach-impacted-some-workspace-accounts/">
   <div class="meta">BleepingComputer — 29/08/2025, 03:39:24</div>
   <h2 class="title">Google warns Salesloft breach impacted some Workspace accounts <a href="https://www.bleepingcomputer.com/news/security/google-warns-salesloft-breach-impacted-some-workspace-accounts/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
+</div>
+<div class="card" data-source="darkreading" data-date="2025-08-28T18:49:55.000Z" data-link="https://www.darkreading.com/threat-intelligence/akira-clop-top-5-most-active-ransomware-groups-list">
+  <div class="meta">darkreading — 29/08/2025, 00:19:55</div>
+  <h2 class="title">Akira, Cl0p Top List of 5 Most Active Ransomware-as-a-Service Groups <a href="https://www.darkreading.com/threat-intelligence/akira-clop-top-5-most-active-ransomware-groups-list" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
+</div>
+<div class="card" data-source="darkreading" data-date="2025-08-28T18:39:25.000Z" data-link="https://www.darkreading.com/cyberattacks-data-breaches/1000-devs-lose-secrets-ai-powered-stealer">
+  <div class="meta">darkreading — 29/08/2025, 00:09:25</div>
+  <h2 class="title">1,000+ Devs Lose Their Secrets to an AI-Powered Stealer <a href="https://www.darkreading.com/cyberattacks-data-breaches/1000-devs-lose-secrets-ai-powered-stealer" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
+</div>
+<div class="card" data-source="darkreading" data-date="2025-08-28T18:00:19.000Z" data-link="https://www.darkreading.com/cyber-risk/dark-reading-confidential-guided-tour-dark-web">
+  <div class="meta">darkreading — 28/08/2025, 23:30:19</div>
+  <h2 class="title">Dark Reading Confidential: A Guided Tour of Today&#39;s Dark Web <a href="https://www.darkreading.com/cyber-risk/dark-reading-confidential-guided-tour-dark-web" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
 </div>
 <div class="card" data-source="Krebs on Security" data-date="2025-08-28T17:21:32.000Z" data-link="https://krebsonsecurity.com/2025/08/affiliates-flock-to-soulless-scam-gambling-machine/">
   <div class="meta">Krebs on Security — 28/08/2025, 22:51:32</div>
@@ -203,6 +230,22 @@
   <div class="meta">Proofpoint News Feed — 28/08/2025, 12:24:57</div>
   <h2 class="title">58% of Organizations Are Unprepared for Cyberattacks <a href="https://www.proofpoint.com/us/newsroom/news/58-organizations-are-unprepared-cyberattacks" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
 </div>
+<div class="card" data-source="darkreading" data-date="2025-08-27T23:18:53.000Z" data-link="https://www.darkreading.com/cybersecurity-analytics/crowdstrike-acquire-onum-boost-falcon-next-gen-siem">
+  <div class="meta">darkreading — 28/08/2025, 04:48:53</div>
+  <h2 class="title">CrowdStrike to Acquire Onum, Boost Falcon Next-Gen SIEM <a href="https://www.darkreading.com/cybersecurity-analytics/crowdstrike-acquire-onum-boost-falcon-next-gen-siem" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
+</div>
+<div class="card" data-source="darkreading" data-date="2025-08-27T19:59:53.000Z" data-link="https://www.darkreading.com/cyberattacks-data-breaches/nevada-state-agencies-cyberattack">
+  <div class="meta">darkreading — 28/08/2025, 01:29:53</div>
+  <h2 class="title">Nevada&#39;s State Agencies Shutter in Wake of Cyberattack <a href="https://www.darkreading.com/cyberattacks-data-breaches/nevada-state-agencies-cyberattack" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
+</div>
+<div class="card" data-source="darkreading" data-date="2025-08-27T19:31:03.000Z" data-link="https://www.darkreading.com/cyberattacks-data-breaches/china-hijacks-captive-portals-spy-asian-diplomats">
+  <div class="meta">darkreading — 28/08/2025, 01:01:03</div>
+  <h2 class="title">China Hijacks Captive Portals to Spy on Asian Diplomats <a href="https://www.darkreading.com/cyberattacks-data-breaches/china-hijacks-captive-portals-spy-asian-diplomats" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
+</div>
+<div class="card" data-source="darkreading" data-date="2025-08-27T19:05:37.000Z" data-link="https://www.darkreading.com/cyberattacks-data-breaches/google-salesforce-attacks-third-party-app">
+  <div class="meta">darkreading — 28/08/2025, 00:35:37</div>
+  <h2 class="title">Google: Salesforce Attacks Stemmed From Third-Party App <a href="https://www.darkreading.com/cyberattacks-data-breaches/google-salesforce-attacks-third-party-app" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
+</div>
 <div class="card" data-source="The Hacker News" data-date="2025-08-27T19:04:00.000Z" data-link="https://thehackernews.com/2025/08/storm-0501-exploits-entra-id-to.html">
   <div class="meta">The Hacker News — 28/08/2025, 00:34:00</div>
   <h2 class="title">Storm-0501 Exploits Entra ID to Exfiltrate and Delete Azure Data in Hybrid Cloud Attacks <a href="https://thehackernews.com/2025/08/storm-0501-exploits-entra-id-to.html" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
@@ -211,6 +254,10 @@
   <div class="meta">The Hacker News — 27/08/2025, 22:37:00</div>
   <h2 class="title">Someone Created the First AI-Powered Ransomware Using OpenAI&#39;s gpt-oss:20b Model <a href="https://thehackernews.com/2025/08/someone-created-first-ai-powered.html" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
 </div>
+<div class="card" data-source="darkreading" data-date="2025-08-27T16:00:00.000Z" data-link="https://www.darkreading.com/cloud-security/storm-0501-cloud-based-ransomware-attack">
+  <div class="meta">darkreading — 27/08/2025, 21:30:00</div>
+  <h2 class="title">Storm-0501 Hits Enterprise With &#39;Cloud-Based Ransomware&#39; Attack <a href="https://www.darkreading.com/cloud-security/storm-0501-cloud-based-ransomware-attack" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
+</div>
 <div class="card" data-source="The Hacker News" data-date="2025-08-27T15:10:00.000Z" data-link="https://thehackernews.com/2025/08/anthropic-disrupts-ai-powered.html">
   <div class="meta">The Hacker News — 27/08/2025, 20:40:00</div>
   <h2 class="title">Anthropic Disrupts AI-Powered Cyberattacks Automating Theft and Extortion Across Critical Sectors <a href="https://thehackernews.com/2025/08/anthropic-disrupts-ai-powered.html" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
@@ -218,6 +265,14 @@
 <div class="card" data-source="The Hacker News" data-date="2025-08-27T13:47:00.000Z" data-link="https://thehackernews.com/2025/08/shadowsilk-hits-36-government-targets.html">
   <div class="meta">The Hacker News — 27/08/2025, 19:17:00</div>
   <h2 class="title">ShadowSilk Hits 35 Organizations in Central Asia and APAC Using Telegram Bots <a href="https://thehackernews.com/2025/08/shadowsilk-hits-36-government-targets.html" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
+</div>
+<div class="card" data-source="darkreading" data-date="2025-08-27T13:27:04.000Z" data-link="https://www.darkreading.com/vulnerabilities-threats/ai-powered-ransomware-promptlock">
+  <div class="meta">darkreading — 27/08/2025, 18:57:04</div>
+  <h2 class="title">AI-Powered Ransomware Has Arrived With &#39;PromptLock&#39; <a href="https://www.darkreading.com/vulnerabilities-threats/ai-powered-ransomware-promptlock" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
+</div>
+<div class="card" data-source="darkreading" data-date="2025-08-27T13:24:41.000Z" data-link="https://www.darkreading.com/data-privacy/gaps-in-california-privacy-law-half-of-data-brokers-ignore-requests">
+  <div class="meta">darkreading — 27/08/2025, 18:54:41</div>
+  <h2 class="title">Gaps in California Privacy Law: Half of Data Brokers Ignore Requests <a href="https://www.darkreading.com/data-privacy/gaps-in-california-privacy-law-half-of-data-brokers-ignore-requests" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
 </div>
 <div class="card" data-source="The Hacker News" data-date="2025-08-27T09:39:00.000Z" data-link="https://thehackernews.com/2025/08/salesloft-oauth-breach-via-drift-ai.html">
   <div class="meta">The Hacker News — 27/08/2025, 15:09:00</div>
@@ -231,6 +286,10 @@
   <div class="meta">Microsoft Security Response Center — 27/08/2025, 12:30:00</div>
   <h2 class="title">BlueHat Asia 2025: Closing soon: Submit your papers by September 5, 2025 <a href="https://msrc.microsoft.com/blog/2025/08/bluehat-asia-2025-closing-soon-submit-your-papers-by-september-5-2025/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
 </div>
+<div class="card" data-source="darkreading" data-date="2025-08-27T06:00:00.000Z" data-link="https://www.darkreading.com/cyberattacks-data-breaches/african-law-enforcement-agencies-nab-cybercrime-syndicates">
+  <div class="meta">darkreading — 27/08/2025, 11:30:00</div>
+  <h2 class="title">African Law Enforcement Agencies Nab Cybercrime Syndicates <a href="https://www.darkreading.com/cyberattacks-data-breaches/african-law-enforcement-agencies-nab-cybercrime-syndicates" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
+</div>
 <div class="card" data-source="SANS Internet Storm Center, InfoCON: green" data-date="2025-08-27T05:55:21.000Z" data-link="https://isc.sans.edu/diary/rss/32238">
   <div class="meta">SANS Internet Storm Center, InfoCON: green — 27/08/2025, 11:25:21</div>
   <h2 class="title">Interesting Technique to Launch a Shellcode, (Wed, Aug 27th) <a href="https://isc.sans.edu/diary/rss/32238" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
@@ -243,6 +302,22 @@
   <div class="meta">Blog — 27/08/2025, 10:30:00</div>
   <h2 class="title">CrowdStrike to Acquire Onum to Transform How Data Powers the Agentic SOC <a href="https://www.crowdstrike.com/en-us/blog/crowdstrike-to-acquire-onum/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
 </div>
+<div class="card" data-source="darkreading" data-date="2025-08-26T21:00:29.000Z" data-link="https://www.darkreading.com/cybersecurity-operations/hospital-gets-ransomware-others-feel-pain">
+  <div class="meta">darkreading — 27/08/2025, 02:30:29</div>
+  <h2 class="title">When One Hospital Gets Ransomware, Others Feel the Pain <a href="https://www.darkreading.com/cybersecurity-operations/hospital-gets-ransomware-others-feel-pain" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
+</div>
+<div class="card" data-source="darkreading" data-date="2025-08-26T20:04:47.000Z" data-link="https://www.darkreading.com/vulnerabilities-threats/citrix-zero-day-under-active-attack">
+  <div class="meta">darkreading — 27/08/2025, 01:34:47</div>
+  <h2 class="title">Citrix Gear Under Active Attack Again With Another Zero-Day <a href="https://www.darkreading.com/vulnerabilities-threats/citrix-zero-day-under-active-attack" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
+</div>
+<div class="card" data-source="darkreading" data-date="2025-08-26T19:42:48.000Z" data-link="https://www.darkreading.com/cyberattacks-data-breaches/data-io-ransomware-attack">
+  <div class="meta">darkreading — 27/08/2025, 01:12:48</div>
+  <h2 class="title">Data I/O Becomes Latest Ransomware Attack Victim <a href="https://www.darkreading.com/cyberattacks-data-breaches/data-io-ransomware-attack" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
+</div>
+<div class="card" data-source="darkreading" data-date="2025-08-26T17:39:09.000Z" data-link="https://www.darkreading.com/endpoint-security/hook-android-trojan-ransomware-attacks">
+  <div class="meta">darkreading — 26/08/2025, 23:09:09</div>
+  <h2 class="title">Hook Android Trojan Now Delivers Ransomware-Style Attacks <a href="https://www.darkreading.com/endpoint-security/hook-android-trojan-ransomware-attacks" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
+</div>
 <div class="card" data-source="The Hacker News" data-date="2025-08-26T17:29:00.000Z" data-link="https://thehackernews.com/2025/08/citrix-patches-three-netscaler-flaws.html">
   <div class="meta">The Hacker News — 26/08/2025, 22:59:00</div>
   <h2 class="title">Citrix Patches Three NetScaler Flaws, Confirms Active Exploitation of CVE-2025-7775 <a href="https://thehackernews.com/2025/08/citrix-patches-three-netscaler-flaws.html" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
@@ -250,6 +325,10 @@
 <div class="card" data-source="The Hacker News" data-date="2025-08-26T17:23:00.000Z" data-link="https://thehackernews.com/2025/08/new-sni5gect-attack-crashes-phones-and.html">
   <div class="meta">The Hacker News — 26/08/2025, 22:53:00</div>
   <h2 class="title">New Sni5Gect Attack Crashes Phones and Downgrades 5G to 4G without Rogue Base Station <a href="https://thehackernews.com/2025/08/new-sni5gect-attack-crashes-phones-and.html" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
+</div>
+<div class="card" data-source="darkreading" data-date="2025-08-26T14:00:00.000Z" data-link="https://www.darkreading.com/cyberattacks-data-breaches/hidden-risk-consumer-devices-hybrid-workforce">
+  <div class="meta">darkreading — 26/08/2025, 19:30:00</div>
+  <h2 class="title">The Hidden Risk of Consumer Devices in the Hybrid Workforce <a href="https://www.darkreading.com/cyberattacks-data-breaches/hidden-risk-consumer-devices-hybrid-workforce" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
 </div>
 <div class="card" data-source="Threat Intelligence" data-date="2025-08-26T14:00:00.000Z" data-link="https://cloud.google.com/blog/topics/threat-intelligence/data-theft-salesforce-instances-via-salesloft-drift/">
   <div class="meta">Threat Intelligence — 26/08/2025, 19:30:00</div>
@@ -295,6 +374,14 @@
   <div class="meta">The Hacker News — 26/08/2025, 11:25:00</div>
   <h2 class="title">CISA Adds Three Exploited Vulnerabilities to KEV Catalog Affecting Citrix and Git <a href="https://thehackernews.com/2025/08/cisa-adds-three-exploited.html" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
 </div>
+<div class="card" data-source="darkreading" data-date="2025-08-25T21:10:12.000Z" data-link="https://www.darkreading.com/cyber-risk/hackers-knocked-out-iran-ship-comms">
+  <div class="meta">darkreading — 26/08/2025, 02:40:12</div>
+  <h2 class="title">Hackers Lay in Wait, Then Knocked Out Iran Ship Comms <a href="https://www.darkreading.com/cyber-risk/hackers-knocked-out-iran-ship-comms" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
+</div>
+<div class="card" data-source="darkreading" data-date="2025-08-25T19:32:50.000Z" data-link="https://www.darkreading.com/vulnerabilities-threats/clickfix-attack-ai-summaries-pushing-malware">
+  <div class="meta">darkreading — 26/08/2025, 01:02:50</div>
+  <h2 class="title">ClickFix Attack Tricks AI Summaries Into Pushing Malware <a href="https://www.darkreading.com/vulnerabilities-threats/clickfix-attack-ai-summaries-pushing-malware" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
+</div>
 <div class="card" data-source="The Hacker News" data-date="2025-08-25T18:11:00.000Z" data-link="https://thehackernews.com/2025/08/unc6384-deploys-plugx-via-captive.html">
   <div class="meta">The Hacker News — 25/08/2025, 23:41:00</div>
   <h2 class="title">UNC6384 Deploys PlugX via Captive Portal Hijacks and Valid Certificates Targeting Diplomats <a href="https://thehackernews.com/2025/08/unc6384-deploys-plugx-via-captive.html" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
@@ -306,6 +393,10 @@
 <div class="card" data-source="The Hacker News" data-date="2025-08-25T16:04:00.000Z" data-link="https://thehackernews.com/2025/08/phishing-campaign-uses-upcrypter-in.html">
   <div class="meta">The Hacker News — 25/08/2025, 21:34:00</div>
   <h2 class="title">Phishing Campaign Uses UpCrypter in Fake Voicemail Emails to Deliver RAT Payloads <a href="https://thehackernews.com/2025/08/phishing-campaign-uses-upcrypter-in.html" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
+</div>
+<div class="card" data-source="darkreading" data-date="2025-08-25T15:13:42.000Z" data-link="https://www.darkreading.com/cyberattacks-data-breaches/fast-spreading-phishing-installs-rats">
+  <div class="meta">darkreading — 25/08/2025, 20:43:42</div>
+  <h2 class="title">Fast-Spreading, Complex Phishing Campaign Installs RATs <a href="https://www.darkreading.com/cyberattacks-data-breaches/fast-spreading-phishing-installs-rats" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
 </div>
 <div class="card" data-source="The Hacker News" data-date="2025-08-25T12:17:00.000Z" data-link="https://thehackernews.com/2025/08/weekly-recap-password-manager-flaws.html">
   <div class="meta">The Hacker News — 25/08/2025, 17:47:00</div>
@@ -347,9 +438,21 @@
   <div class="meta">The Hacker News — 23/08/2025, 13:08:00</div>
   <h2 class="title">GeoServer Exploits, PolarEdge, and Gayfemboy Push Cybercrime Beyond Traditional Botnets <a href="https://thehackernews.com/2025/08/geoserver-exploits-polaredge-and.html" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
 </div>
+<div class="card" data-source="darkreading" data-date="2025-08-22T20:52:24.000Z" data-link="https://www.darkreading.com/cloud-security/silk-typhoon-north-american-orgs-cloud">
+  <div class="meta">darkreading — 23/08/2025, 02:22:24</div>
+  <h2 class="title">Silk Typhoon Attacks North American Orgs in the Cloud <a href="https://www.darkreading.com/cloud-security/silk-typhoon-north-american-orgs-cloud" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
+</div>
+<div class="card" data-source="darkreading" data-date="2025-08-22T20:21:05.000Z" data-link="https://www.darkreading.com/endpoint-security/revault-compromised-secure-soc">
+  <div class="meta">darkreading — 23/08/2025, 01:51:05</div>
+  <h2 class="title">ReVault Flaw Exposed Millions of Dell Laptops to Malicious Domination <a href="https://www.darkreading.com/endpoint-security/revault-compromised-secure-soc" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
+</div>
 <div class="card" data-source="The Hacker News" data-date="2025-08-22T14:31:00.000Z" data-link="https://thehackernews.com/2025/08/linux-malware-delivered-via-malicious.html">
   <div class="meta">The Hacker News — 22/08/2025, 20:01:00</div>
   <h2 class="title">Linux Malware Delivered via Malicious RAR Filenames Evades Antivirus Detection <a href="https://thehackernews.com/2025/08/linux-malware-delivered-via-malicious.html" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
+</div>
+<div class="card" data-source="darkreading" data-date="2025-08-22T14:07:56.000Z" data-link="https://www.darkreading.com/vulnerabilities-threats/apple-zero-day-flaw-sophisticated-attack">
+  <div class="meta">darkreading — 22/08/2025, 19:37:56</div>
+  <h2 class="title">Apple Patches Zero-Day Flaw Used in &#39;Sophisticated&#39; Attack <a href="https://www.darkreading.com/vulnerabilities-threats/apple-zero-day-flaw-sophisticated-attack" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
 </div>
 <div class="card" data-source="All CISA Advisories" data-date="2025-08-22T12:00:00.000Z" data-link="https://www.cisa.gov/news-events/alerts/2025/08/22/cisa-requests-public-comment-updated-guidance-software-bill-materials">
   <div class="meta">All CISA Advisories — 22/08/2025, 17:30:00</div>
@@ -359,6 +462,14 @@
   <div class="meta">The Hacker News — 22/08/2025, 16:36:00</div>
   <h2 class="title">Chinese Hackers Murky, Genesis, and Glacial Panda Escalate Cloud and Telecom Espionage <a href="https://thehackernews.com/2025/08/chinese-hackers-murky-genesis-and.html" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
 </div>
+<div class="card" data-source="darkreading" data-date="2025-08-21T21:07:34.000Z" data-link="https://www.darkreading.com/cyberattacks-data-breaches/scattered-spider-member-prison">
+  <div class="meta">darkreading — 22/08/2025, 02:37:34</div>
+  <h2 class="title">Scattered Spider Member Sentenced to a Decade in Prison <a href="https://www.darkreading.com/cyberattacks-data-breaches/scattered-spider-member-prison" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
+</div>
+<div class="card" data-source="darkreading" data-date="2025-08-21T20:35:09.000Z" data-link="https://www.darkreading.com/application-security/chatgpt-downgrade-attack-gpt-5-security">
+  <div class="meta">darkreading — 22/08/2025, 02:05:09</div>
+  <h2 class="title">Easy ChatGPT Downgrade Attack Undermines GPT-5 Security <a href="https://www.darkreading.com/application-security/chatgpt-downgrade-attack-gpt-5-security" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
+</div>
 <div class="card" data-source="The Hacker News" data-date="2025-08-21T16:38:00.000Z" data-link="https://thehackernews.com/2025/08/pre-auth-exploit-chains-found-in.html">
   <div class="meta">The Hacker News — 21/08/2025, 22:08:00</div>
   <h2 class="title">Pre-Auth Exploit Chains Found in Commvault Could Enable Remote Code Execution Attacks <a href="https://thehackernews.com/2025/08/pre-auth-exploit-chains-found-in.html" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
@@ -366,6 +477,10 @@
 <div class="card" data-source="The Hacker News" data-date="2025-08-21T16:25:00.000Z" data-link="https://thehackernews.com/2025/08/cybercriminals-deploy-cornflakev3.html">
   <div class="meta">The Hacker News — 21/08/2025, 21:55:00</div>
   <h2 class="title">Cybercriminals Deploy CORNFLAKE.V3 Backdoor via ClickFix Tactic and Fake CAPTCHA Pages <a href="https://thehackernews.com/2025/08/cybercriminals-deploy-cornflakev3.html" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
+</div>
+<div class="card" data-source="darkreading" data-date="2025-08-21T14:00:00.000Z" data-link="https://www.darkreading.com/cyberattacks-data-breaches/prepping-front-line-mfa-social-engineering-attacks">
+  <div class="meta">darkreading — 21/08/2025, 19:30:00</div>
+  <h2 class="title">Prepping the Front Line for MFA Social Engineering Attacks <a href="https://www.darkreading.com/cyberattacks-data-breaches/prepping-front-line-mfa-social-engineering-attacks" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
 </div>
 <div class="card" data-source="All CISA Advisories" data-date="2025-08-21T12:00:00.000Z" data-link="https://www.cisa.gov/news-events/ics-medical-advisories/icsma-25-233-01">
   <div class="meta">All CISA Advisories — 21/08/2025, 17:30:00</div>
@@ -566,110 +681,6 @@
 <div class="card" data-source="Red Canary" data-date="2025-07-24T17:38:26.000Z" data-link="https://redcanary.com/blog/threat-intelligence/intelligence-insights-july-2025/">
   <div class="meta">Red Canary — 24/07/2025, 23:08:26</div>
   <h2 class="title">Intelligence Insights: July 2025 <a href="https://redcanary.com/blog/threat-intelligence/intelligence-insights-july-2025/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
-</div>
-<div class="card" data-source="security – Ars Technica" data-date="2025-07-23T19:46:30.000Z" data-link="https://arstechnica.com/security/2025/07/how-do-hackers-get-passwords-sometimes-they-just-ask/">
-  <div class="meta">security – Ars Technica — 24/07/2025, 01:16:30</div>
-  <h2 class="title">After $380M hack, Clorox sues its “service desk” vendor for simply giving out passwords <a href="https://arstechnica.com/security/2025/07/how-do-hackers-get-passwords-sometimes-they-just-ask/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
-</div>
-<div class="card" data-source="Check Point Research" data-date="2025-07-21T18:59:05.000Z" data-link="https://research.checkpoint.com/2025/21st-july-threat-intelligence-report/">
-  <div class="meta">Check Point Research — 22/07/2025, 00:29:05</div>
-  <h2 class="title">21st July – Threat Intelligence Report <a href="https://research.checkpoint.com/2025/21st-july-threat-intelligence-report/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
-</div>
-<div class="card" data-source="CISA Cybersecurity Advisories" data-date="2025-07-21T14:11:24.000Z" data-link="https://www.cisa.gov/news-events/cybersecurity-advisories/aa25-203a">
-  <div class="meta">CISA Cybersecurity Advisories — 21/07/2025, 19:41:24</div>
-  <h2 class="title">#StopRansomware: Interlock <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa25-203a" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
-</div>
-<div class="card" data-source="Microsoft Security Response Center" data-date="2025-07-19T07:00:00.000Z" data-link="https://msrc.microsoft.com/blog/2025/07/customer-guidance-for-sharepoint-vulnerability-cve-2025-53770/">
-  <div class="meta">Microsoft Security Response Center — 19/07/2025, 12:30:00</div>
-  <h2 class="title">Customer guidance for SharePoint vulnerability CVE-2025-53770 <a href="https://msrc.microsoft.com/blog/2025/07/customer-guidance-for-sharepoint-vulnerability-cve-2025-53770/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
-</div>
-<div class="card" data-source="Threat Intelligence" data-date="2025-07-16T14:00:00.000Z" data-link="https://cloud.google.com/blog/topics/threat-intelligence/sonicwall-secure-mobile-access-exploitation-overstep-backdoor/">
-  <div class="meta">Threat Intelligence — 16/07/2025, 19:30:00</div>
-  <h2 class="title">Ongoing SonicWall Secure Mobile Access (SMA) Exploitation Campaign using the OVERSTEP Backdoor <a href="https://cloud.google.com/blog/topics/threat-intelligence/sonicwall-secure-mobile-access-exploitation-overstep-backdoor/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
-</div>
-<div class="card" data-source="Check Point Research" data-date="2025-07-14T12:37:09.000Z" data-link="https://research.checkpoint.com/2025/14th-july-threat-intelligence-report/">
-  <div class="meta">Check Point Research — 14/07/2025, 18:07:09</div>
-  <h2 class="title">14th July – Threat Intelligence Report <a href="https://research.checkpoint.com/2025/14th-july-threat-intelligence-report/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
-</div>
-<div class="card" data-source="security – Ars Technica" data-date="2025-07-09T20:08:27.000Z" data-link="https://arstechnica.com/security/2025/07/browser-extensions-turn-nearly-1-million-browsers-into-website-scraping-bots/">
-  <div class="meta">security – Ars Technica — 10/07/2025, 01:38:27</div>
-  <h2 class="title">Browser extensions turn nearly 1 million browsers into website-scraping bots <a href="https://arstechnica.com/security/2025/07/browser-extensions-turn-nearly-1-million-browsers-into-website-scraping-bots/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
-</div>
-<div class="card" data-source="Check Point Research" data-date="2025-07-07T10:57:26.000Z" data-link="https://research.checkpoint.com/2025/6th-july-threat-intelligence-report/">
-  <div class="meta">Check Point Research — 07/07/2025, 16:27:26</div>
-  <h2 class="title">7th July – Threat Intelligence Report <a href="https://research.checkpoint.com/2025/6th-july-threat-intelligence-report/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
-</div>
-<div class="card" data-source="SentinelLabs - We are hunters, reversers, exploit developers, and tinkerers shedding light on the world of malware, exploits, APTs, and cybercrime across all platforms." data-date="2025-07-02T09:55:37.000Z" data-link="https://www.sentinelone.com/labs/macos-nimdoor-dprk-threat-actors-target-web3-and-crypto-platforms-with-nim-based-malware/">
-  <div class="meta">SentinelLabs - We are hunters, reversers, exploit developers, and tinkerers shedding light on the world of malware, exploits, APTs, and cybercrime across all platforms. — 02/07/2025, 15:25:37</div>
-  <h2 class="title">macOS NimDoor | DPRK Threat Actors Target Web3 and Crypto Platforms with Nim-Based Malware <a href="https://www.sentinelone.com/labs/macos-nimdoor-dprk-threat-actors-target-web3-and-crypto-platforms-with-nim-based-malware/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
-</div>
-<div class="card" data-source="Check Point Research" data-date="2025-06-30T11:25:14.000Z" data-link="https://research.checkpoint.com/2025/29th-june-threat-intelligence-report/">
-  <div class="meta">Check Point Research — 30/06/2025, 16:55:14</div>
-  <h2 class="title">30th June – Threat Intelligence Report <a href="https://research.checkpoint.com/2025/29th-june-threat-intelligence-report/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
-</div>
-<div class="card" data-source="Microsoft Security Response Center" data-date="2025-06-25T07:00:00.000Z" data-link="https://msrc.microsoft.com/blog/2025/06/redirectionguard-mitigating-unsafe-junction-traversal-in-windows/">
-  <div class="meta">Microsoft Security Response Center — 25/06/2025, 12:30:00</div>
-  <h2 class="title">RedirectionGuard: Mitigating unsafe junction traversal in Windows <a href="https://msrc.microsoft.com/blog/2025/06/redirectionguard-mitigating-unsafe-junction-traversal-in-windows/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
-</div>
-<div class="card" data-source="CISA Cybersecurity Advisories" data-date="2025-06-12T14:29:54.000Z" data-link="https://www.cisa.gov/news-events/cybersecurity-advisories/aa25-163a">
-  <div class="meta">CISA Cybersecurity Advisories — 12/06/2025, 19:59:54</div>
-  <h2 class="title">Ransomware Actors Exploit Unpatched SimpleHelp Remote Monitoring and Management to Compromise Utility Billing Software Provider <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa25-163a" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
-</div>
-<div class="card" data-source="SentinelLabs - We are hunters, reversers, exploit developers, and tinkerers shedding light on the world of malware, exploits, APTs, and cybercrime across all platforms." data-date="2025-06-09T09:55:54.000Z" data-link="https://www.sentinelone.com/labs/follow-the-smoke-china-nexus-threat-actors-hammer-at-the-doors-of-top-tier-targets/">
-  <div class="meta">SentinelLabs - We are hunters, reversers, exploit developers, and tinkerers shedding light on the world of malware, exploits, APTs, and cybercrime across all platforms. — 09/06/2025, 15:25:54</div>
-  <h2 class="title">Follow the Smoke | China-nexus Threat Actors Hammer At the Doors of Top Tier Targets <a href="https://www.sentinelone.com/labs/follow-the-smoke-china-nexus-threat-actors-hammer-at-the-doors-of-top-tier-targets/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
-</div>
-<div class="card" data-source="security – Ars Technica" data-date="2025-06-05T17:08:23.000Z" data-link="https://arstechnica.com/gaming/2025/06/nintendo-warns-switch-2-gamechat-users-your-chat-is-recorded/">
-  <div class="meta">security – Ars Technica — 05/06/2025, 22:38:23</div>
-  <h2 class="title">Nintendo warns Switch 2 GameChat users: “Your chat is recorded” <a href="https://arstechnica.com/gaming/2025/06/nintendo-warns-switch-2-gamechat-users-your-chat-is-recorded/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
-</div>
-<div class="card" data-source="Threat Intelligence" data-date="2025-06-04T14:00:00.000Z" data-link="https://cloud.google.com/blog/topics/threat-intelligence/voice-phishing-data-extortion/">
-  <div class="meta">Threat Intelligence — 04/06/2025, 19:30:00</div>
-  <h2 class="title">The Cost of a Call: From Voice Phishing to Data Extortion <a href="https://cloud.google.com/blog/topics/threat-intelligence/voice-phishing-data-extortion/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
-</div>
-<div class="card" data-source="Threats - Cisco Talos Blog" data-date="2025-05-29T10:00:31.000Z" data-link="https://blog.talosintelligence.com/fake-ai-tool-installers/">
-  <div class="meta">Threats - Cisco Talos Blog — 29/05/2025, 15:30:31</div>
-  <h2 class="title">Cybercriminals camouflaging threats as AI tool installers <a href="https://blog.talosintelligence.com/fake-ai-tool-installers/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
-</div>
-<div class="card" data-source="Threat Intelligence" data-date="2025-05-28T14:00:00.000Z" data-link="https://cloud.google.com/blog/topics/threat-intelligence/apt41-innovative-tactics/">
-  <div class="meta">Threat Intelligence — 28/05/2025, 19:30:00</div>
-  <h2 class="title">Mark Your Calendar: APT41 Innovative Tactics <a href="https://cloud.google.com/blog/topics/threat-intelligence/apt41-innovative-tactics/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
-</div>
-<div class="card" data-source="Threat Intelligence" data-date="2025-05-27T05:00:00.000Z" data-link="https://cloud.google.com/blog/topics/threat-intelligence/cybercriminals-weaponize-fake-ai-websites/">
-  <div class="meta">Threat Intelligence — 27/05/2025, 10:30:00</div>
-  <h2 class="title">Text-to-Malware: How Cybercriminals Weaponize Fake AI-Themed Websites <a href="https://cloud.google.com/blog/topics/threat-intelligence/cybercriminals-weaponize-fake-ai-websites/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
-</div>
-<div class="card" data-source="Threats - Cisco Talos Blog" data-date="2025-05-23T10:00:34.000Z" data-link="https://blog.talosintelligence.com/scarcity-signals-are-rare-activities-red-flags/">
-  <div class="meta">Threats - Cisco Talos Blog — 23/05/2025, 15:30:34</div>
-  <h2 class="title">Scarcity signals: Are rare activities red flags? <a href="https://blog.talosintelligence.com/scarcity-signals-are-rare-activities-red-flags/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
-</div>
-<div class="card" data-source="CISA Cybersecurity Advisories" data-date="2025-05-20T19:20:23.000Z" data-link="https://www.cisa.gov/news-events/cybersecurity-advisories/aa25-141b">
-  <div class="meta">CISA Cybersecurity Advisories — 21/05/2025, 00:50:23</div>
-  <h2 class="title">Threat Actors Deploy LummaC2 Malware to Exfiltrate Sensitive Data from Organizations <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa25-141b" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
-</div>
-<div class="card" data-source="security – Ars Technica" data-date="2025-05-13T20:31:11.000Z" data-link="https://arstechnica.com/security/2025/05/google-introduces-advanced-protection-mode-for-its-most-at-risk-android-users/">
-  <div class="meta">security – Ars Technica — 14/05/2025, 02:01:11</div>
-  <h2 class="title">Google introduces Advanced Protection mode for its most at-risk Android users <a href="https://arstechnica.com/security/2025/05/google-introduces-advanced-protection-mode-for-its-most-at-risk-android-users/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
-</div>
-<div class="card" data-source="SentinelLabs - We are hunters, reversers, exploit developers, and tinkerers shedding light on the world of malware, exploits, APTs, and cybercrime across all platforms." data-date="2025-05-08T13:55:29.000Z" data-link="https://www.sentinelone.com/labs/freedrain-unmasked-uncovering-an-industrial-scale-crypto-theft-network/">
-  <div class="meta">SentinelLabs - We are hunters, reversers, exploit developers, and tinkerers shedding light on the world of malware, exploits, APTs, and cybercrime across all platforms. — 08/05/2025, 19:25:29</div>
-  <h2 class="title">FreeDrain Unmasked | Uncovering an Industrial-Scale Crypto Theft Network <a href="https://www.sentinelone.com/labs/freedrain-unmasked-uncovering-an-industrial-scale-crypto-theft-network/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
-</div>
-<div class="card" data-source="security – Ars Technica" data-date="2025-05-07T16:49:24.000Z" data-link="https://arstechnica.com/gadgets/2025/05/open-source-project-curl-is-sick-of-users-submitting-ai-slop-vulnerabilities/">
-  <div class="meta">security – Ars Technica — 07/05/2025, 22:19:24</div>
-  <h2 class="title">Open source project curl is sick of users submitting “AI slop” vulnerabilities <a href="https://arstechnica.com/gadgets/2025/05/open-source-project-curl-is-sick-of-users-submitting-ai-slop-vulnerabilities/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
-</div>
-<div class="card" data-source="Threat Intelligence" data-date="2025-05-07T14:00:00.000Z" data-link="https://cloud.google.com/blog/topics/threat-intelligence/coldriver-steal-documents-western-targets-ngos/">
-  <div class="meta">Threat Intelligence — 07/05/2025, 19:30:00</div>
-  <h2 class="title">COLDRIVER Using New Malware To Steal Documents From Western Targets and NGOs <a href="https://cloud.google.com/blog/topics/threat-intelligence/coldriver-steal-documents-western-targets-ngos/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
-</div>
-<div class="card" data-source="Threat Intelligence" data-date="2025-05-06T14:00:00.000Z" data-link="https://cloud.google.com/blog/topics/threat-intelligence/unc3944-proactive-hardening-recommendations/">
-  <div class="meta">Threat Intelligence — 06/05/2025, 19:30:00</div>
-  <h2 class="title">Defending Against UNC3944: Cybercrime Hardening Guidance from the Frontlines <a href="https://cloud.google.com/blog/topics/threat-intelligence/unc3944-proactive-hardening-recommendations/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
-</div>
-<div class="card" data-source="security – Ars Technica" data-date="2025-04-28T11:00:59.000Z" data-link="https://arstechnica.com/security/2025/04/ios-and-android-juice-jacking-defenses-have-been-trivial-to-bypass-for-years/">
-  <div class="meta">security – Ars Technica — 28/04/2025, 16:30:59</div>
-  <h2 class="title">iOS and Android juice jacking defenses have been trivial to bypass for years <a href="https://arstechnica.com/security/2025/04/ios-and-android-juice-jacking-defenses-have-been-trivial-to-bypass-for-years/" target="_blank" rel="noopener" class="click-here">Click here</a></h2>
 </div></div>
   </div>
 
@@ -678,7 +689,7 @@
 const root=document.documentElement;
 const saved=localStorage.getItem("theme"); if(saved) root.setAttribute("data-theme",saved);
 document.getElementById("theme").onclick=()=>{const nxt=root.getAttribute("data-theme")==="dark"?"light":"dark";
-  root.setAttribute("data-theme",nxt);localStorage.setItem("theme",nxt);};
+  root.setAttribute("data-theme",nxt); localStorage.setItem("theme",nxt);};
 
 /* ---------- Enhance cards ---------- */
 const list=document.getElementById('list');
@@ -730,6 +741,7 @@ function apply(){
     const okK=tags.length===0||tags.some(t=>text.includes(t));
     card.style.display=(okQ&&okS&&okK)?'':'none';
   });
+  // hide empty group headers
   [...document.querySelectorAll('.group-date')].forEach(h=>{
     let n=h.nextElementSibling, any=false;
     while(n && !n.classList.contains('group-date')){
@@ -745,7 +757,7 @@ kw?.querySelectorAll('.pill').forEach(p=>{const k=(p.textContent||'').trim().toL
 apply();
 </script>
 
-<!-- Server renders each item like:
+<!-- Card markup expected from the builder:
 <div class="card" data-source="BleepingComputer" data-date="2025-08-30T21:52:51Z" data-link="https://...">
   <div class="meta">BleepingComputer — 30/08/2025, 21:52:51</div>
   <h2 class="title">Headline text <a href="https://..." class="click-here" target="_blank" rel="noopener">Click here</a></h2>
