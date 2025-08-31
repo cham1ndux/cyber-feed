@@ -25,12 +25,15 @@
     "https://research.checkpoint.com/feed/",
     "https://cert.europa.eu/publications/feed",
     "https://www.kb.cert.org/vuls/rss/rss.xml",
-    "https://dailydarkweb.net/category/ransomware-news/feed",
-    "https://dailydarkweb.net/category/ransomware-news/feed"
+    "https://dailydarkweb.net/category/ransomware-news/feed/",
+    "https://blog.sekoia.io/category/threat-research/feed",
+    "https://www.nextron-systems.com/blog/feed"
   ],
 "include_keywords": [
   "CVE-",
   "ClickFix",
+  "Malware",
+  "Leak",
   "Attack",
   "0-day",
   "zero-day",
