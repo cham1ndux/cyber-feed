@@ -6,182 +6,147 @@
 <title>{{TITLE}}</title>
 <style>
   :root{
-    --bg:#fafafa; --card:#fff; --text:#0f172a; --muted:#475569; --ring:#e5e7eb; --chip:#eef2ff; --pill:#f1f5f9;
-    --shadow:0 1px 2px rgba(0,0,0,.06),0 4px 12px rgba(0,0,0,.06);
+    --bg:#fafafa; --card:#fff; --text:#0f172a; --muted:#475569; --ring:#e5e7eb;
+    --pill:#f1f5f9; --shadow:0 1px 2px rgba(0,0,0,.06),0 6px 18px rgba(0,0,0,.08);
+    --link:#2563eb; --link-hover:#1d4ed8; --link-visited:#4f46e5;
   }
   [data-theme="dark"]{
-    --bg:#0b1220; --card:#111827; --text:#e5e7eb; --muted:#9aa4b2; --ring:#1f2937; --chip:#0f172a; --pill:#111827;
-    --shadow:0 1px 2px rgba(0,0,0,.5),0 6px 18px rgba(0,0,0,.35);
+    --bg:#0b1220; --card:#0f172a; --text:#e5e7eb; --muted:#9aa4b2; --ring:#1f2937;
+    --pill:#111827; --shadow:0 1px 2px rgba(0,0,0,.5),0 6px 18px rgba(0,0,0,.35);
+    --link:#a5b4fc; --link-hover:#c7d2fe; --link-visited:#93c5fd;
   }
   *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0; background:var(--bg); color:var(--text);
-    font:500 16px/1.5 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Inter,Calibri;
-  }
-  .container{max-width:980px;margin:96px auto 40px;padding:0 16px}
-  /* Sticky header */
+  body{margin:0;background:var(--bg);color:var(--text);
+       font:500 16px/1.5 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Inter}
   .topbar{
-    position:fixed; inset:0 0 auto 0; background:var(--bg); border-bottom:1px solid var(--ring);
-    display:flex; gap:12px; align-items:center; padding:14px 16px; z-index:50;
-    backdrop-filter:saturate(160%) blur(8px);
+    position:fixed;inset:0 0 auto 0;background:var(--bg);border-bottom:1px solid var(--ring);
+    display:flex;gap:12px;align-items:center;padding:14px 16px;z-index:50;backdrop-filter:blur(8px)
   }
-  .brand{font-weight:800; letter-spacing:.2px; font-size:20px}
+  .brand{font-weight:800;font-size:20px}
   .spacer{flex:1}
-  .input, .select{
-    background:var(--card); color:var(--text); border:1px solid var(--ring); border-radius:10px;
-    padding:10px 12px; outline:none; min-width:220px; box-shadow:var(--shadow,none);
+  .input,.select,.toggle{
+    background:var(--card);color:var(--text);border:1px solid var(--ring);border-radius:10px;padding:10px 12px
   }
-  .toggle{border:1px solid var(--ring); background:var(--card); color:var(--text);
-    border-radius:999px; padding:8px 12px; cursor:pointer}
-  .muted{color:var(--muted); font-size:13px}
-  .updated{margin-left:6px}
-  /* Keyword pills */
-  .keywords{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 20px}
-  .pill{
-    display:inline-flex; gap:6px; align-items:center; padding:6px 10px; border-radius:999px;
-    border:1px solid var(--ring); background:var(--pill); font-size:12px; cursor:pointer; user-select:none;
+  .toggle{cursor:pointer}
+  .container{max-width:980px;margin:96px auto 40px;padding:0 16px}
+  .muted{color:var(--muted);font-size:13px}
+  /* Keywords dropdown */
+  details.keywrap{margin:8px 0 18px;border:1px solid var(--ring);border-radius:12px;background:var(--card)}
+  details.keywrap>summary{
+    list-style:none;cursor:pointer;padding:10px 12px;display:flex;align-items:center;gap:8px;
+    border-radius:12px
   }
+  details.keywrap[open]>summary{border-bottom:1px solid var(--ring)}
+  .keywords{display:flex;flex-wrap:wrap;gap:8px;padding:12px}
+  .pill{border:1px solid var(--ring);background:var(--pill);border-radius:999px;padding:6px 10px;
+        font-size:12px;cursor:pointer;user-select:none}
   .pill.active{outline:2px solid #6366f1}
-  /* Cards */
-  .group-date{margin:22px 0 12px; font-weight:700}
+  /* Cards & groups */
+  .group-date{margin:22px 0 12px;font-weight:800}
+  .group-date.badge{display:inline-block;border-left:4px solid #6366f1;padding:4px 10px;border-radius:8px}
+  [data-theme="dark"] .group-date.badge{border-left-color:#a5b4fc}
   .card{
-    background:var(--card); border:1px solid var(--ring); border-radius:14px; padding:14px 16px; margin:10px 0;
-    box-shadow:var(--shadow); transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+    background:var(--card);border:1px solid var(--ring);border-radius:14px;padding:14px 16px;margin:10px 0;
+    box-shadow:var(--shadow);transition:transform .12s ease,box-shadow .12s ease
   }
   .card:hover{transform:translateY(-1px)}
-  .meta{display:flex; align-items:center; gap:10px; font-size:12px; color:var(--muted); margin-bottom:6px}
+  .meta{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted);margin-bottom:6px}
   .meta img{width:14px;height:14px;border-radius:3px}
-  .title{font-size:18px; font-weight:800; line-height:1.35; margin:0}
-  .title a{color:inherit; text-decoration:none}
-  .title a:hover{text-decoration:underline}
-  /* Source dropdown */
-  .select{min-width:180px}
-  /* Small helpers */
-  .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+  .title{font-size:18px;font-weight:800;line-height:1.35;margin:0}
+  .title a{color:var(--link);text-decoration:none}
+  .title a:hover{color:var(--link-hover);text-decoration:underline}
+  .title a:visited{color:var(--link-visited)}
 </style>
 </head>
 <body>
-  <!-- Sticky header -->
+  <!-- Header -->
   <div class="topbar">
     <div class="brand">{{TITLE}}</div>
-    <div class="muted updated">Updated: {{UPDATED}} • Items: {{COUNT}}</div>
+    <div class="muted">Updated: {{UPDATED}} • Items: {{COUNT}}</div>
     <div class="spacer"></div>
     <input id="q" class="input" placeholder="Search title/summary… (e.g., CVE-2025, Fortinet, RCE)">
-    <select id="source" class="select">
-      <option value="">All sources</option>
-    </select>
+    <select id="source" class="select"><option value="">All sources</option></select>
     <button id="theme" class="toggle" title="Toggle theme">🌓 Theme</button>
   </div>
 
   <div class="container">
-    <div class="muted">Keywords:</div>
-    <div id="kw" class="keywords"> {{KEYWORDS}} </div>
+    <details class="keywrap">
+      <summary><span class="muted">Keywords</span></summary>
+      <div id="kw" class="keywords">{{KEYWORDS}}</div>
+    </details>
 
     <div id="list">{{ITEMS}}</div>
   </div>
 
 <script>
 /* ---------- Theme ---------- */
-const root = document.documentElement;
-const savedTheme = localStorage.getItem("theme");
-if (savedTheme) root.setAttribute("data-theme", savedTheme);
-document.getElementById("theme").onclick = () => {
-  const next = root.getAttribute("data-theme")==="dark" ? "light" : "dark";
-  root.setAttribute("data-theme", next);
-  localStorage.setItem("theme", next);
-};
+const root=document.documentElement;
+const saved=localStorage.getItem("theme"); if(saved) root.setAttribute("data-theme",saved);
+document.getElementById("theme").onclick=()=>{const nxt=root.getAttribute("data-theme")==="dark"?"light":"dark";
+  root.setAttribute("data-theme",nxt);localStorage.setItem("theme",nxt);};
 
-/* ---------- Enhance cards (favicon, grouping, filters) ---------- */
-const list = document.getElementById('list');
-const cards = [...list.querySelectorAll('.card')];
-
-// Add favicons + collect sources
-const sources = new Set();
-cards.forEach(card => {
-  const link = card.querySelector('a')?.href || '';
-  try {
-    const host = new URL(link).hostname;
-    const icon = `https://www.google.com/s2/favicons?domain=${host}`;
-    const img = document.createElement('img');
-    img.loading = "lazy"; img.decoding = "async"; img.src = icon;
-    card.querySelector('.meta').prepend(img);
-  } catch(e){}
-  const s = card.dataset.source || '';
-  if (s) sources.add(s);
+/* ---------- Enhance cards ---------- */
+const list=document.getElementById('list');
+const cards=[...list.querySelectorAll('.card')];
+const sources=new Set();
+cards.forEach(card=>{
+  const link=card.querySelector('a')?.href||'';
+  try{const host=new URL(link).hostname;
+    const img=document.createElement('img'); img.loading="lazy"; img.decoding="async";
+    img.src=`https://www.google.com/s2/favicons?domain=${host}`;
+    card.querySelector('.meta').prepend(img);}catch(e){}
+  const s=card.dataset.source||''; if(s) sources.add(s);
+});
+const sel=document.getElementById('source'); [...sources].sort().forEach(s=>{
+  const o=document.createElement('option'); o.value=s; o.textContent=s; sel.appendChild(o);
 });
 
-// Populate source dropdown
-const sourceSel = document.getElementById('source');
-[...sources].sort().forEach(s=>{
-  const opt = document.createElement('option');
-  opt.value = s; opt.textContent = s;
-  sourceSel.appendChild(opt);
-});
-
-// Insert day separators (Today / Yesterday / Date)
-function dayLabel(d) {
-  const today = new Date(); today.setHours(0,0,0,0);
-  const that = new Date(d); that.setHours(0,0,0,0);
-  const diff = (today - that)/(1000*60*60*24);
-  if (diff === 0) return "Today";
-  if (diff === 1) return "Yesterday";
-  return that.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});
+/* ---------- Date grouping (timezone-correct) ---------- */
+function isSameDay(a,b){return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate();}
+function labelFor(date){
+  const today=new Date(); const yest=new Date(); yest.setDate(today.getDate()-1);
+  if(isSameDay(date,today)) return "Today";
+  if(isSameDay(date,yest)) return "Yesterday";
+  return date.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});
 }
-(function groupByDay(){
-  let last = '';
+(function group(){
+  let last='';
   cards.forEach(card=>{
-    const when = new Date(card.dataset.date || Date.now());
-    const label = dayLabel(when);
-    if (label !== last) {
-      const h = document.createElement('div');
-      h.className = 'group-date'; h.textContent = label;
-      list.insertBefore(h, card);
-      last = label;
+    const d=new Date(card.dataset.date||Date.now()); // uses local timezone view
+    const lbl=labelFor(d);
+    if(lbl!==last){
+      const h=document.createElement('div'); h.className='group-date badge'; h.textContent=lbl;
+      list.insertBefore(h,card); last=lbl;
     }
   });
 })();
 
-/* ---------- Filters: search + source + pill click ---------- */
-const q = document.getElementById('q');
-const kwContainer = document.getElementById('kw');
-
-function applyFilters(){
-  const query = q.value.trim().toLowerCase();
-  const src = sourceSel.value;
-  const activePills = [...kwContainer.querySelectorAll('.pill.active')].map(p=>p.dataset.k);
+/* ---------- Filters (search/source/keyword) ---------- */
+const q=document.getElementById('q'); const kw=document.getElementById('kw');
+function apply(){
+  const query=(q.value||'').trim().toLowerCase(); const src=sel.value;
+  const tags=[...kw?.querySelectorAll('.pill.active')||[]].map(p=>p.dataset.k);
   cards.forEach(card=>{
-    const text = (card.textContent || '').toLowerCase();
-    const matchQ = !query || text.includes(query);
-    const matchS = !src || (card.dataset.source === src);
-    const matchK = activePills.length===0 || activePills.some(k=>text.includes(k));
-    card.style.display = (matchQ && matchS && matchK) ? '' : 'none';
+    const text=(card.textContent||'').toLowerCase();
+    const okQ=!query||text.includes(query);
+    const okS=!src||(card.dataset.source===src);
+    const okK=tags.length===0||tags.some(t=>text.includes(t));
+    card.style.display=(okQ&&okS&&okK)?'':'none';
   });
-  // hide empty day headers
+  // hide empty group headers
   [...document.querySelectorAll('.group-date')].forEach(h=>{
-    let next = h.nextElementSibling, any=false;
-    while(next && !next.classList.contains('group-date')){
-      if (next.style.display !== 'none'){ any=true; break; }
-      next = next.nextElementSibling;
+    let n=h.nextElementSibling, any=false;
+    while(n && !n.classList.contains('group-date')){
+      if(n.style.display!=='none'){any=true;break;}
+      n=n.nextElementSibling;
     }
-    h.style.display = any ? '' : 'none';
+    h.style.display=any?'':'none';
   });
 }
-q.addEventListener('input', applyFilters);
-sourceSel.addEventListener('change', applyFilters);
-
-// Make keyword pills interactive
-kwContainer.querySelectorAll('.pill').forEach(p=>{
-  const k = (p.textContent||'').trim().toLowerCase();
-  p.dataset.k = k;
-  p.addEventListener('click', ()=>{
-    p.classList.toggle('active');
-    applyFilters();
-  });
-});
-
-// Initial run
-applyFilters();
+q.addEventListener('input',apply); sel.addEventListener('change',apply);
+kw?.querySelectorAll('.pill').forEach(p=>{const k=(p.textContent||'').trim().toLowerCase(); p.dataset.k=k;
+  p.addEventListener('click',()=>{p.classList.toggle('active'); apply();});});
+apply();
 </script>
 
 <!-- Server renders each item like:
