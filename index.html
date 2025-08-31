@@ -5,31 +5,80 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Cybersecurity Feed</title>
 <style>
-  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu;max-width:980px;margin:40px auto;padding:0 16px}
-  header{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
-  .meta{opacity:.7;font-size:14px}
-  .card{border:1px solid #e5e7eb;border-radius:12px;padding:16px;margin:12px 0}
-  .src{font-size:12px;opacity:.65;margin-bottom:6px}
-  a{color:inherit;text-decoration:none}
-  a:hover{text-decoration:underline}
-  .pill{font-size:11px;border:1px solid #e5e7eb;border-radius:999px;padding:4px 8px;margin-right:6px}
-  footer{margin:24px 0;opacity:.6;font-size:12px}
+  :root{
+    --bg:#fafafa; --card:#fff; --text:#0f172a; --muted:#475569; --ring:#e5e7eb; --chip:#eef2ff; --pill:#f1f5f9;
+    --shadow:0 1px 2px rgba(0,0,0,.06),0 4px 12px rgba(0,0,0,.06);
+  }
+  [data-theme="dark"]{
+    --bg:#0b1220; --card:#111827; --text:#e5e7eb; --muted:#9aa4b2; --ring:#1f2937; --chip:#0f172a; --pill:#111827;
+    --shadow:0 1px 2px rgba(0,0,0,.5),0 6px 18px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font:500 16px/1.5 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Inter,Calibri;
+  }
+  .container{max-width:980px;margin:96px auto 40px;padding:0 16px}
+  /* Sticky header */
+  .topbar{
+    position:fixed; inset:0 0 auto 0; background:var(--bg); border-bottom:1px solid var(--ring);
+    display:flex; gap:12px; align-items:center; padding:14px 16px; z-index:50;
+    backdrop-filter:saturate(160%) blur(8px);
+  }
+  .brand{font-weight:800; letter-spacing:.2px; font-size:20px}
+  .spacer{flex:1}
+  .input, .select{
+    background:var(--card); color:var(--text); border:1px solid var(--ring); border-radius:10px;
+    padding:10px 12px; outline:none; min-width:220px; box-shadow:var(--shadow,none);
+  }
+  .toggle{border:1px solid var(--ring); background:var(--card); color:var(--text);
+    border-radius:999px; padding:8px 12px; cursor:pointer}
+  .muted{color:var(--muted); font-size:13px}
+  .updated{margin-left:6px}
+  /* Keyword pills */
+  .keywords{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 20px}
+  .pill{
+    display:inline-flex; gap:6px; align-items:center; padding:6px 10px; border-radius:999px;
+    border:1px solid var(--ring); background:var(--pill); font-size:12px; cursor:pointer; user-select:none;
+  }
+  .pill.active{outline:2px solid #6366f1}
+  /* Cards */
+  .group-date{margin:22px 0 12px; font-weight:700}
+  .card{
+    background:var(--card); border:1px solid var(--ring); border-radius:14px; padding:14px 16px; margin:10px 0;
+    box-shadow:var(--shadow); transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+  }
+  .card:hover{transform:translateY(-1px)}
+  .meta{display:flex; align-items:center; gap:10px; font-size:12px; color:var(--muted); margin-bottom:6px}
+  .meta img{width:14px;height:14px;border-radius:3px}
+  .title{font-size:18px; font-weight:800; line-height:1.35; margin:0}
+  .title a{color:inherit; text-decoration:none}
+  .title a:hover{text-decoration:underline}
+  /* Source dropdown */
+  .select{min-width:180px}
+  /* Small helpers */
+  .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
 </style>
 </head>
 <body>
-<header>
-  <h1>Cybersecurity Feed</h1>
-  <div class="meta">
-    Updated: 31/08/2025, 20:58:52 • Items: 150
+  <!-- Sticky header -->
+  <div class="topbar">
+    <div class="brand">Cybersecurity Feed</div>
+    <div class="muted updated">Updated: 31/08/2025, 21:09:16 • Items: 150</div>
+    <div class="spacer"></div>
+    <input id="q" class="input" placeholder="Search title/summary… (e.g., CVE-2025, Fortinet, RCE)">
+    <select id="source" class="select">
+      <option value="">All sources</option>
+    </select>
+    <button id="theme" class="toggle" title="Toggle theme">🌓 Theme</button>
   </div>
-</header>
 
-<div class="meta" style="margin:8px 0 20px;">
-  Keywords: <span class="pill">cve-</span> <span class="pill">clickfix</span> <span class="pill">attack</span> <span class="pill">0-day</span> <span class="pill">zero-day</span> <span class="pill">rce</span> <span class="pill">remote code execution</span> <span class="pill">privilege escalation</span> <span class="pill">lpe</span> <span class="pill">kernel exploit</span> <span class="pill">poc exploit</span> <span class="pill">weaponized exploit</span> <span class="pill">kev</span> <span class="pill">cisa kev</span> <span class="pill">critical vulnerability</span> <span class="pill">supply chain attack</span> <span class="pill">dependency hijacking</span> <span class="pill">dll sideloading</span> <span class="pill">code injection</span> <span class="pill">memory corruption</span> <span class="pill">sql injection</span> <span class="pill">ssrf</span> <span class="pill">xss</span> <span class="pill">sandbox escape</span> <span class="pill">hypervisor escape</span> <span class="pill">ransomware</span> <span class="pill">data exfiltration</span> <span class="pill">lateral movement</span> <span class="pill">apt</span> <span class="pill">nation state</span> <span class="pill">cobalt strike</span> <span class="pill">sliver</span> <span class="pill">metasploit</span> <span class="pill">malware campaign</span> <span class="pill">phishing kit</span> <span class="pill">loader</span> <span class="pill">infostealer</span> <span class="pill">rootkit</span> <span class="pill">persistence</span> <span class="pill">command and control</span> <span class="pill">c2</span> <span class="pill">backdoor</span> <span class="pill">fortinet</span> <span class="pill">fortios</span> <span class="pill">fortigate</span> <span class="pill">globalprotect</span> <span class="pill">palo alto</span> <span class="pill">cortex xdr</span> <span class="pill">xsiam</span> <span class="pill">prisma</span> <span class="pill">pan-os</span> <span class="pill">crowdstrike</span> <span class="pill">sentinelone</span> <span class="pill">mandiant</span> <span class="pill">elastic security</span> <span class="pill">azure ad</span> <span class="pill">kql</span> <span class="pill">active directory</span> <span class="pill">kerberos</span> <span class="pill">golden ticket</span> <span class="pill">pass-the-hash</span> <span class="pill">okta</span> <span class="pill">identity breach</span> <span class="pill">session hijack</span> 
-</div>
+  <div class="container">
+    <div class="muted">Keywords:</div>
+    <div id="kw" class="keywords"> <span class="pill">cve-</span> <span class="pill">clickfix</span> <span class="pill">attack</span> <span class="pill">0-day</span> <span class="pill">zero-day</span> <span class="pill">rce</span> <span class="pill">remote code execution</span> <span class="pill">privilege escalation</span> <span class="pill">lpe</span> <span class="pill">kernel exploit</span> <span class="pill">poc exploit</span> <span class="pill">weaponized exploit</span> <span class="pill">kev</span> <span class="pill">cisa kev</span> <span class="pill">critical vulnerability</span> <span class="pill">supply chain attack</span> <span class="pill">dependency hijacking</span> <span class="pill">dll sideloading</span> <span class="pill">code injection</span> <span class="pill">memory corruption</span> <span class="pill">sql injection</span> <span class="pill">ssrf</span> <span class="pill">xss</span> <span class="pill">sandbox escape</span> <span class="pill">hypervisor escape</span> <span class="pill">ransomware</span> <span class="pill">data exfiltration</span> <span class="pill">lateral movement</span> <span class="pill">apt</span> <span class="pill">nation state</span> <span class="pill">cobalt strike</span> <span class="pill">sliver</span> <span class="pill">metasploit</span> <span class="pill">malware campaign</span> <span class="pill">phishing kit</span> <span class="pill">loader</span> <span class="pill">infostealer</span> <span class="pill">rootkit</span> <span class="pill">persistence</span> <span class="pill">command and control</span> <span class="pill">c2</span> <span class="pill">backdoor</span> <span class="pill">fortinet</span> <span class="pill">fortios</span> <span class="pill">fortigate</span> <span class="pill">globalprotect</span> <span class="pill">palo alto</span> <span class="pill">cortex xdr</span> <span class="pill">xsiam</span> <span class="pill">prisma</span> <span class="pill">pan-os</span> <span class="pill">crowdstrike</span> <span class="pill">sentinelone</span> <span class="pill">mandiant</span> <span class="pill">elastic security</span> <span class="pill">azure ad</span> <span class="pill">kql</span> <span class="pill">active directory</span> <span class="pill">kerberos</span> <span class="pill">golden ticket</span> <span class="pill">pass-the-hash</span> <span class="pill">okta</span> <span class="pill">identity breach</span> <span class="pill">session hijack</span> </div>
 
-<div id="list">
-<div class="card">
+    <div id="list"><div class="card">
   <div class="src">BleepingComputer — 30/08/2025, 21:52:51</div>
   <a href="https://www.bleepingcomputer.com/news/security/tamperedchef-infostealer-delivered-through-fraudulent-pdf-editor/" target="_blank" rel="noopener"><strong>TamperedChef infostealer delivered through fraudulent PDF Editor</strong></a>
 </div>
@@ -628,11 +677,117 @@
 <div class="card">
   <div class="src">Red Canary — 24/07/2025, 23:08:26</div>
   <a href="https://redcanary.com/blog/threat-intelligence/intelligence-insights-july-2025/" target="_blank" rel="noopener"><strong>Intelligence Insights: July 2025</strong></a>
-</div>
-</div>
+</div></div>
+  </div>
 
-<footer>
-  Built static via GitHub Actions. Feeds auto-refresh hourly.
-</footer>
+<script>
+/* ---------- Theme ---------- */
+const root = document.documentElement;
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme) root.setAttribute("data-theme", savedTheme);
+document.getElementById("theme").onclick = () => {
+  const next = root.getAttribute("data-theme")==="dark" ? "light" : "dark";
+  root.setAttribute("data-theme", next);
+  localStorage.setItem("theme", next);
+};
+
+/* ---------- Enhance cards (favicon, grouping, filters) ---------- */
+const list = document.getElementById('list');
+const cards = [...list.querySelectorAll('.card')];
+
+// Add favicons + collect sources
+const sources = new Set();
+cards.forEach(card => {
+  const link = card.querySelector('a')?.href || '';
+  try {
+    const host = new URL(link).hostname;
+    const icon = `https://www.google.com/s2/favicons?domain=${host}`;
+    const img = document.createElement('img');
+    img.loading = "lazy"; img.decoding = "async"; img.src = icon;
+    card.querySelector('.meta').prepend(img);
+  } catch(e){}
+  const s = card.dataset.source || '';
+  if (s) sources.add(s);
+});
+
+// Populate source dropdown
+const sourceSel = document.getElementById('source');
+[...sources].sort().forEach(s=>{
+  const opt = document.createElement('option');
+  opt.value = s; opt.textContent = s;
+  sourceSel.appendChild(opt);
+});
+
+// Insert day separators (Today / Yesterday / Date)
+function dayLabel(d) {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const that = new Date(d); that.setHours(0,0,0,0);
+  const diff = (today - that)/(1000*60*60*24);
+  if (diff === 0) return "Today";
+  if (diff === 1) return "Yesterday";
+  return that.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});
+}
+(function groupByDay(){
+  let last = '';
+  cards.forEach(card=>{
+    const when = new Date(card.dataset.date || Date.now());
+    const label = dayLabel(when);
+    if (label !== last) {
+      const h = document.createElement('div');
+      h.className = 'group-date'; h.textContent = label;
+      list.insertBefore(h, card);
+      last = label;
+    }
+  });
+})();
+
+/* ---------- Filters: search + source + pill click ---------- */
+const q = document.getElementById('q');
+const kwContainer = document.getElementById('kw');
+
+function applyFilters(){
+  const query = q.value.trim().toLowerCase();
+  const src = sourceSel.value;
+  const activePills = [...kwContainer.querySelectorAll('.pill.active')].map(p=>p.dataset.k);
+  cards.forEach(card=>{
+    const text = (card.textContent || '').toLowerCase();
+    const matchQ = !query || text.includes(query);
+    const matchS = !src || (card.dataset.source === src);
+    const matchK = activePills.length===0 || activePills.some(k=>text.includes(k));
+    card.style.display = (matchQ && matchS && matchK) ? '' : 'none';
+  });
+  // hide empty day headers
+  [...document.querySelectorAll('.group-date')].forEach(h=>{
+    let next = h.nextElementSibling, any=false;
+    while(next && !next.classList.contains('group-date')){
+      if (next.style.display !== 'none'){ any=true; break; }
+      next = next.nextElementSibling;
+    }
+    h.style.display = any ? '' : 'none';
+  });
+}
+q.addEventListener('input', applyFilters);
+sourceSel.addEventListener('change', applyFilters);
+
+// Make keyword pills interactive
+kwContainer.querySelectorAll('.pill').forEach(p=>{
+  const k = (p.textContent||'').trim().toLowerCase();
+  p.dataset.k = k;
+  p.addEventListener('click', ()=>{
+    p.classList.toggle('active');
+    applyFilters();
+  });
+});
+
+// Initial run
+applyFilters();
+</script>
+
+<!-- Server renders each item like:
+<div class="card" data-source="BleepingComputer" data-date="2025-08-30T21:52:51Z">
+  <div class="meta">BleepingComputer — 30/08/2025, 21:52:51</div>
+  <h2 class="title"><a href="https://...">Title</a></h2>
+</div>
+-->
 </body>
 </html>
