@@ -27,7 +27,8 @@
     "https://www.kb.cert.org/vuls/rss/rss.xml",
     "https://dailydarkweb.net/category/ransomware-news/feed/",
     "https://blog.sekoia.io/category/threat-research/feed",
-    "https://www.nextron-systems.com/blog/feed"
+    "https://www.nextron-systems.com/blog/feed",
+    "https://gbhackers.com/feed/"
   ],
 "include_keywords": [
   "CVE-",
@@ -95,7 +96,8 @@
   "pass-the-hash",
   "Okta",
   "identity breach",
-  "session hijack"
+  "session hijack",
+  "exploit"
 ],
   "exclude_keywords": [
     "bassa",
