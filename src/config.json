@@ -98,11 +98,8 @@
   "session hijack"
 ],
   "exclude_keywords": [
-    "weekly roundup",
-    "podcast",
-    "webinar",
-    "sponsored",
-    "advertisement"
+    "bassa",
+    "kaluwa"
   ],
   "max_items": 150,
   "title": "Cybersecurity Feed",
