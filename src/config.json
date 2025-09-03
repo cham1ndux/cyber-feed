@@ -28,6 +28,7 @@
     "https://dailydarkweb.net/category/ransomware-news/feed/",
     "https://blog.sekoia.io/category/threat-research/feed",
     "https://www.nextron-systems.com/blog/feed",
+    "http://wiz.io/api/feed/cloud-threat-landscape/rss.xml",
     "https://gbhackers.com/feed/"
   ],
 "include_keywords": [
