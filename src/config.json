@@ -32,7 +32,8 @@
     "https://www.seqrite.com/blog/feed/",
     "https://cybersecuritynews.com/feed",
     "https://blog.fox-it.com/feed",
-    "https://gbhackers.com/feed/"
+    "https://gbhackers.com/feed/",
+    "https://www.bitdefender.com/nuxt/api/en-us/rss/businessinsights/threat-research/"
   ],
 "include_keywords": [
   "CVE-",
