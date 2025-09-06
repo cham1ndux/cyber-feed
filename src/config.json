@@ -31,6 +31,7 @@
     "http://wiz.io/api/feed/cloud-threat-landscape/rss.xml",
     "https://www.seqrite.com/blog/feed/",
     "https://cybersecuritynews.com/feed",
+    "https://blog.fox-it.com/feed",
     "https://gbhackers.com/feed/"
   ],
 "include_keywords": [
