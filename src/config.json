@@ -33,7 +33,9 @@
     "https://cybersecuritynews.com/feed",
     "https://blog.fox-it.com/feed",
     "https://gbhackers.com/feed/",
-    "https://www.bitdefender.com/nuxt/api/en-us/rss/businessinsights/threat-research/"
+    "https://www.bitdefender.com/nuxt/api/en-us/rss/businessinsights/threat-research/",
+    "https://cyble.com/feed/",
+    "https://socprime.com/feed/"
   ],
 "include_keywords": [
   "CVE-",
@@ -109,7 +111,11 @@
     "kaluwa",
     "10 Best",
     "Top 10",
-    "Talent"
+    "Talent",
+    "Certificate",
+    "Leader",
+    "Kali Linux",
+    "Parrot OS"
   ],
   "max_items": 150,
   "title": "Cybersecurity Feed",
