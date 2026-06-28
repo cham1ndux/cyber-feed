@@ -334,10 +334,15 @@ body {
   border-radius: 4px;
   border: 1px solid;
 }
-.badge-cve    { color: var(--purple);  border-color: var(--purple);  background: var(--purple-dim); }
-.badge-critical { color: var(--red);   border-color: var(--red);     background: var(--red-dim); }
-.badge-high   { color: var(--orange);  border-color: var(--orange);  background: var(--orange-dim); }
-.badge-medium { color: var(--yellow);  border-color: var(--yellow);  background: var(--yellow-dim); }
+.badge-cve      { color: var(--purple);  border-color: var(--purple);  background: var(--purple-dim); }
+.badge-critical { color: var(--red);    border-color: var(--red);     background: var(--red-dim); }
+.badge-high     { color: var(--orange); border-color: var(--orange);  background: var(--orange-dim); }
+.badge-medium   { color: var(--yellow); border-color: var(--yellow);  background: var(--yellow-dim); }
+.badge-new      { color: var(--green);  border-color: var(--green);   background: var(--green-dim); animation: newpulse 2s infinite; }
+.badge-actor    { color: #67e8f9; border-color: #0891b2; background: rgba(8,145,178,0.15); }
+@keyframes newpulse { 0%,100%{opacity:1} 50%{opacity:.6} }
+
+.actor-tags { display: flex; flex-wrap: wrap; gap: 5px; margin: 8px 0 4px; }
 
 .card-title {
   font-size: 14px;
@@ -435,7 +440,8 @@ body {
       <span class="brand-badge">LIVE</span>
     </a>
     <div class="topbar-divider"></div>
-    <span class="updated-text">Updated: 29/06/2026, 00:23:09</span>
+    <span class="updated-text">Updated: 29/06/2026, 00:55:10</span>
+    <span id="refresh-countdown" class="updated-text" style="color:var(--text3)"></span>
     <div class="topbar-right">
       <div class="search-wrap">
         <span class="search-icon">🔍</span>
@@ -444,6 +450,7 @@ body {
       <select id="source" class="select-source">
         <option value="">All sources</option>
       </select>
+      <button id="btn-refresh" class="btn-theme" title="Refresh now">🔄 <span>Refresh</span></button>
       <button id="theme" class="btn-theme" title="Toggle theme">
         <span id="theme-icon">☀️</span><span>Theme</span>
       </button>
@@ -464,15 +471,52 @@ body {
       <div class="empty-icon">🔎</div>
       <div class="empty-text">No results match your filters.</div>
     </div>
-    <div id="list"><div class="card" data-source="The Hacker News" data-date="2026-06-27T17:27:11.000Z" data-link="https://thehackernews.com/2026/06/ukraine-says-russian-intelligence-used.html" data-title="Ukraine Says Russian Intelligence Used Fake Support Texts to Steal Messaging Credentials" tabindex="0" role="link" aria-label="Ukraine Says Russian Intelligence Used Fake Support Texts to Steal Messaging Credentials">
+    <div id="list"><div class="card sev-high" data-source="Security Affairs" data-date="2026-06-28T18:05:59.000Z" data-link="https://securityaffairs.com/194383/malware/security-affairs-malware-newsletter-round-103.html" data-title="SECURITY AFFAIRS MALWARE NEWSLETTER ROUND 103" tabindex="0" role="link" aria-label="SECURITY AFFAIRS MALWARE NEWSLETTER ROUND 103">
+  <div class="card-meta">
+    <span class="source-tag">Security Affairs</span>
+    <span class="card-date">28/06/2026, 23:35:59</span>
+    <span class="card-badges"><span class="badge badge-new">NEW</span><span class="badge badge-high">High</span></span>
+  </div>
+  <div class="card-title">SECURITY AFFAIRS MALWARE NEWSLETTER ROUND 103</div>
+  
+  <div class="card-footer">
+    <a href="https://securityaffairs.com/194383/malware/security-affairs-malware-newsletter-round-103.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
+  </div>
+</div>
+<div class="card" data-source="The Hacker News" data-date="2026-06-27T17:27:11.000Z" data-link="https://thehackernews.com/2026/06/ukraine-says-russian-intelligence-used.html" data-title="Ukraine Says Russian Intelligence Used Fake Support Texts to Steal Messaging Credentials" tabindex="0" role="link" aria-label="Ukraine Says Russian Intelligence Used Fake Support Texts to Steal Messaging Credentials">
   <div class="card-meta">
     <span class="source-tag">The Hacker News</span>
     <span class="card-date">27/06/2026, 22:57:11</span>
     
   </div>
   <div class="card-title">Ukraine Says Russian Intelligence Used Fake Support Texts to Steal Messaging Credentials</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/ukraine-says-russian-intelligence-used.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
+  </div>
+</div>
+<div class="card" data-source="Security Affairs" data-date="2026-06-27T16:08:57.000Z" data-link="https://securityaffairs.com/194360/intelligence/new-fbi-alert-russian-intelligence-uses-signal-recovery-keys-to-access-messages.html" data-title="New FBI Alert: Russian Intelligence Uses Signal Recovery Keys to Access Messages" tabindex="0" role="link" aria-label="New FBI Alert: Russian Intelligence Uses Signal Recovery Keys to Access Messages">
+  <div class="card-meta">
+    <span class="source-tag">Security Affairs</span>
+    <span class="card-date">27/06/2026, 21:38:57</span>
+    
+  </div>
+  <div class="card-title">New FBI Alert: Russian Intelligence Uses Signal Recovery Keys to Access Messages</div>
+  
+  <div class="card-footer">
+    <a href="https://securityaffairs.com/194360/intelligence/new-fbi-alert-russian-intelligence-uses-signal-recovery-keys-to-access-messages.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
+  </div>
+</div>
+<div class="card sev-high" data-source="Security Affairs" data-date="2026-06-27T15:20:56.000Z" data-link="https://securityaffairs.com/194349/uncategorized/hospitality-sector-hit-by-phishing-campaign-using-fake-guest-complaint-emails.html" data-title="Hospitality Sector Hit by Phishing Campaign Using Fake Guest Complaint Emails" tabindex="0" role="link" aria-label="Hospitality Sector Hit by Phishing Campaign Using Fake Guest Complaint Emails">
+  <div class="card-meta">
+    <span class="source-tag">Security Affairs</span>
+    <span class="card-date">27/06/2026, 20:50:56</span>
+    <span class="card-badges"><span class="badge badge-high">High</span></span>
+  </div>
+  <div class="card-title">Hospitality Sector Hit by Phishing Campaign Using Fake Guest Complaint Emails</div>
+  
+  <div class="card-footer">
+    <a href="https://securityaffairs.com/194349/uncategorized/hospitality-sector-hit-by-phishing-campaign-using-fake-guest-complaint-emails.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
 </div>
 <div class="card" data-source="BleepingComputer" data-date="2026-06-27T14:22:36.000Z" data-link="https://www.bleepingcomputer.com/news/security/clean-github-repo-tricks-ai-coding-agents-into-running-malware/" data-title="Clean GitHub repo tricks AI coding agents into running malware" tabindex="0" role="link" aria-label="Clean GitHub repo tricks AI coding agents into running malware">
@@ -482,6 +526,7 @@ body {
     
   </div>
   <div class="card-title">Clean GitHub repo tricks AI coding agents into running malware</div>
+  
   <div class="card-footer">
     <a href="https://www.bleepingcomputer.com/news/security/clean-github-repo-tricks-ai-coding-agents-into-running-malware/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -493,8 +538,45 @@ body {
     <span class="card-badges"><span class="badge badge-high">High</span></span>
   </div>
   <div class="card-title">Third-Party Breaches Teach Education Sector a Costly Lesson in Vendor Risk</div>
+  <div class="actor-tags"><span class="badge badge-actor">Play</span></div>
   <div class="card-footer">
     <a href="https://www.darkreading.com/cyber-risk/third-party-breaches-teaches-education-lesson-vendor-risk" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
+  </div>
+</div>
+<div class="card sev-medium" data-source="Security Affairs" data-date="2026-06-27T09:12:26.000Z" data-link="https://securityaffairs.com/194338/uncategorized/dirtyclone-fourth-linux-kernel-flaw-in-six-weeks-escalates-to-root.html" data-title="DirtyClone: Fourth Linux Kernel Flaw in Six Weeks Escalates to Root" tabindex="0" role="link" aria-label="DirtyClone: Fourth Linux Kernel Flaw in Six Weeks Escalates to Root">
+  <div class="card-meta">
+    <span class="source-tag">Security Affairs</span>
+    <span class="card-date">27/06/2026, 14:42:26</span>
+    <span class="card-badges"><span class="badge badge-cve">CVE-2026-43503</span><span class="badge badge-medium">Medium</span></span>
+  </div>
+  <div class="card-title">DirtyClone: Fourth Linux Kernel Flaw in Six Weeks Escalates to Root</div>
+  
+  <div class="card-footer">
+    <a href="https://securityaffairs.com/194338/uncategorized/dirtyclone-fourth-linux-kernel-flaw-in-six-weeks-escalates-to-root.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
+  </div>
+</div>
+<div class="card sev-critical" data-source="Cyber Security News" data-date="2026-06-27T01:08:39.000Z" data-link="https://cybersecuritynews.com/anthropic-claude-mythos-5/" data-title="Anthropic Confirms Claude Mythos 5 Redeployment for US Critical Infrastructure Organizations" tabindex="0" role="link" aria-label="Anthropic Confirms Claude Mythos 5 Redeployment for US Critical Infrastructure Organizations">
+  <div class="card-meta">
+    <span class="source-tag">Cyber Security News</span>
+    <span class="card-date">27/06/2026, 06:38:39</span>
+    <span class="card-badges"><span class="badge badge-critical">Critical</span></span>
+  </div>
+  <div class="card-title">Anthropic Confirms Claude Mythos 5 Redeployment for US Critical Infrastructure Organizations</div>
+  
+  <div class="card-footer">
+    <a href="https://cybersecuritynews.com/anthropic-claude-mythos-5/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
+  </div>
+</div>
+<div class="card" data-source="Cyber Security News" data-date="2026-06-27T00:46:38.000Z" data-link="https://cybersecuritynews.com/bucket-hijacking-attack/" data-title="New Bucket Hijacking Attack Allows Hackers to Reroute Cloud Data Streams to External Storage" tabindex="0" role="link" aria-label="New Bucket Hijacking Attack Allows Hackers to Reroute Cloud Data Streams to External Storage">
+  <div class="card-meta">
+    <span class="source-tag">Cyber Security News</span>
+    <span class="card-date">27/06/2026, 06:16:38</span>
+    
+  </div>
+  <div class="card-title">New Bucket Hijacking Attack Allows Hackers to Reroute Cloud Data Streams to External Storage</div>
+  
+  <div class="card-footer">
+    <a href="https://cybersecuritynews.com/bucket-hijacking-attack/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
 </div>
 <div class="card" data-source="BleepingComputer" data-date="2026-06-26T22:06:17.000Z" data-link="https://www.bleepingcomputer.com/news/security/fbi-russian-hackers-now-target-signal-backup-recovery-keys/" data-title="FBI: Russian hackers now target Signal backup recovery keys" tabindex="0" role="link" aria-label="FBI: Russian hackers now target Signal backup recovery keys">
@@ -504,6 +586,7 @@ body {
     
   </div>
   <div class="card-title">FBI: Russian hackers now target Signal backup recovery keys</div>
+  
   <div class="card-footer">
     <a href="https://www.bleepingcomputer.com/news/security/fbi-russian-hackers-now-target-signal-backup-recovery-keys/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -515,6 +598,7 @@ body {
     <span class="card-badges"><span class="badge badge-critical">Critical</span></span>
   </div>
   <div class="card-title">CISA sets urgent deadline to fix Cisco flaw exploited in attacks</div>
+  
   <div class="card-footer">
     <a href="https://www.bleepingcomputer.com/news/security/cisa-sets-urgent-deadline-to-fix-cisco-flaw-exploited-in-attacks/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -526,6 +610,7 @@ body {
     
   </div>
   <div class="card-title">FBI Warns Russian Intelligence Hackers Target Signal Backup Recovery Keys</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/fbi-warns-russian-intelligence-hackers.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -537,6 +622,7 @@ body {
     
   </div>
   <div class="card-title">Threat Brief: Mitigating Large-Scale Credential Attacks</div>
+  
   <div class="card-footer">
     <a href="https://unit42.paloaltonetworks.com/large-scale-credential-attacks/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -548,6 +634,7 @@ body {
     
   </div>
   <div class="card-title">New SharkLoader Malware Deploys Cobalt Strike in StrikeShark Cyberattacks</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/new-sharkloader-malware-deploys-cobalt.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -559,6 +646,7 @@ body {
     
   </div>
   <div class="card-title">Polymarket customers lose $3 million in supply-chain attack</div>
+  
   <div class="card-footer">
     <a href="https://www.bleepingcomputer.com/news/security/polymarket-customers-lose-3-million-in-supply-chain-attack/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -570,8 +658,45 @@ body {
     
   </div>
   <div class="card-title">Cisco Adds NHI to Security Stack With Astrix, WideField Acquisitions</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/identity-access-management-security/cisco-adds-nhi-security-stack-with-astrix-widefield" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
+  </div>
+</div>
+<div class="card sev-critical" data-source="Cyber Security News" data-date="2026-06-26T17:19:13.000Z" data-link="https://cybersecuritynews.com/dirtyclone-linux-vulnerability/" data-title="New DirtyClone Linux Vulnerability Allows Attackers to Gain Root Access Via Cloned Packets" tabindex="0" role="link" aria-label="New DirtyClone Linux Vulnerability Allows Attackers to Gain Root Access Via Cloned Packets">
+  <div class="card-meta">
+    <span class="source-tag">Cyber Security News</span>
+    <span class="card-date">26/06/2026, 22:49:13</span>
+    <span class="card-badges"><span class="badge badge-cve">CVE-2026-43503</span><span class="badge badge-critical">Critical</span></span>
+  </div>
+  <div class="card-title">New DirtyClone Linux Vulnerability Allows Attackers to Gain Root Access Via Cloned Packets</div>
+  
+  <div class="card-footer">
+    <a href="https://cybersecuritynews.com/dirtyclone-linux-vulnerability/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
+  </div>
+</div>
+<div class="card sev-medium" data-source="Security Affairs" data-date="2026-06-26T17:16:09.000Z" data-link="https://securityaffairs.com/194312/intelligence/chinese-apt-cl-sta-1062-expands-attacks-on-southeast-asian-critical-infrastructure-with-custom-malware.html" data-title="Chinese APT CL-STA-1062 Expands Attacks on Southeast Asian Critical Infrastructure With Custom Malware" tabindex="0" role="link" aria-label="Chinese APT CL-STA-1062 Expands Attacks on Southeast Asian Critical Infrastructure With Custom Malware">
+  <div class="card-meta">
+    <span class="source-tag">Security Affairs</span>
+    <span class="card-date">26/06/2026, 22:46:09</span>
+    <span class="card-badges"><span class="badge badge-medium">Medium</span></span>
+  </div>
+  <div class="card-title">Chinese APT CL-STA-1062 Expands Attacks on Southeast Asian Critical Infrastructure With Custom Malware</div>
+  
+  <div class="card-footer">
+    <a href="https://securityaffairs.com/194312/intelligence/chinese-apt-cl-sta-1062-expands-attacks-on-southeast-asian-critical-infrastructure-with-custom-malware.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
+  </div>
+</div>
+<div class="card" data-source="Cyber Security News" data-date="2026-06-26T16:42:54.000Z" data-link="https://cybersecuritynews.com/amazon-q-vulnerability/" data-title="Amazon Q Vulnerability Let Attackers Execute Code and Access Sensitive Cloud Environments" tabindex="0" role="link" aria-label="Amazon Q Vulnerability Let Attackers Execute Code and Access Sensitive Cloud Environments">
+  <div class="card-meta">
+    <span class="source-tag">Cyber Security News</span>
+    <span class="card-date">26/06/2026, 22:12:54</span>
+    <span class="card-badges"><span class="badge badge-cve">CVE-2026-12957</span></span>
+  </div>
+  <div class="card-title">Amazon Q Vulnerability Let Attackers Execute Code and Access Sensitive Cloud Environments</div>
+  
+  <div class="card-footer">
+    <a href="https://cybersecuritynews.com/amazon-q-vulnerability/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
 </div>
 <div class="card" data-source="darkreading" data-date="2026-06-26T16:32:30.000Z" data-link="https://www.darkreading.com/application-security/initiative-tackles-security-end-of-life-open-source" data-title="New Initiative Tackles Security for End-of-Life Open Source Software" tabindex="0" role="link" aria-label="New Initiative Tackles Security for End-of-Life Open Source Software">
@@ -581,6 +706,7 @@ body {
     
   </div>
   <div class="card-title">New Initiative Tackles Security for End-of-Life Open Source Software</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/application-security/initiative-tackles-security-end-of-life-open-source" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -592,8 +718,21 @@ body {
     
   </div>
   <div class="card-title">Chinese-Speaking APT Deploys New TinyRCT Backdoor in Southeast Asia Campaign</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/chinese-speaking-apt-deploys-new.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
+  </div>
+</div>
+<div class="card sev-critical" data-source="Cyber Security News" data-date="2026-06-26T16:10:02.000Z" data-link="https://cybersecuritynews.com/linux-pedit-cow-exploit/" data-title="New Linux pedit COW Exploit Allows Attackers to Gain System Root Access" tabindex="0" role="link" aria-label="New Linux pedit COW Exploit Allows Attackers to Gain System Root Access">
+  <div class="card-meta">
+    <span class="source-tag">Cyber Security News</span>
+    <span class="card-date">26/06/2026, 21:40:02</span>
+    <span class="card-badges"><span class="badge badge-cve">CVE-2026-31431</span><span class="badge badge-critical">Critical</span></span>
+  </div>
+  <div class="card-title">New Linux pedit COW Exploit Allows Attackers to Gain System Root Access</div>
+  
+  <div class="card-footer">
+    <a href="https://cybersecuritynews.com/linux-pedit-cow-exploit/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
 </div>
 <div class="card" data-source="SecurityWeek" data-date="2026-06-26T15:01:33.000Z" data-link="https://www.securityweek.com/more-klue-breach-victims-identified-as-hackers-get-hacked/" data-title="More Klue Breach Victims Identified as Hackers Get Hacked" tabindex="0" role="link" aria-label="More Klue Breach Victims Identified as Hackers Get Hacked">
@@ -603,6 +742,7 @@ body {
     
   </div>
   <div class="card-title">More Klue Breach Victims Identified as Hackers Get Hacked</div>
+  
   <div class="card-footer">
     <a href="https://www.securityweek.com/more-klue-breach-victims-identified-as-hackers-get-hacked/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -614,6 +754,7 @@ body {
     
   </div>
   <div class="card-title">In Other News: Chinese Mythos-Like AI, Tata Electronics Breach, Snyk Layoffs</div>
+  <div class="actor-tags"><span class="badge badge-actor">Scattered Spider</span></div>
   <div class="card-footer">
     <a href="https://www.securityweek.com/in-other-news-chinese-mythos-like-ai-tata-electronics-breach-snyk-layoffs/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -625,6 +766,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-46331</span></span>
   </div>
   <div class="card-title">New Linux pedit COW Exploit Enables Root Access by Poisoning Cached Binaries</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/new-linux-pedit-cow-exploit-enables.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -636,8 +778,45 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-12957</span></span>
   </div>
   <div class="card-title">Amazon Q Developer Flaw Could Let Malicious Repos Run Code via MCP Configs</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/amazon-q-developer-flaw-could-let.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
+  </div>
+</div>
+<div class="card" data-source="Cyber Security News" data-date="2026-06-26T13:33:23.000Z" data-link="https://cybersecuritynews.com/bluekit-paas-bypasses-mfa/" data-title="New Bluekit Phishing-as-a-Service Bypasses MFA to Steal Microsoft Login Credentials" tabindex="0" role="link" aria-label="New Bluekit Phishing-as-a-Service Bypasses MFA to Steal Microsoft Login Credentials">
+  <div class="card-meta">
+    <span class="source-tag">Cyber Security News</span>
+    <span class="card-date">26/06/2026, 19:03:23</span>
+    
+  </div>
+  <div class="card-title">New Bluekit Phishing-as-a-Service Bypasses MFA to Steal Microsoft Login Credentials</div>
+  
+  <div class="card-footer">
+    <a href="https://cybersecuritynews.com/bluekit-paas-bypasses-mfa/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
+  </div>
+</div>
+<div class="card" data-source="Cyber Security News" data-date="2026-06-26T13:27:05.000Z" data-link="https://cybersecuritynews.com/hackers-exploit-weak-credentials-and-internet-facing-plcs/" data-title="Hackers Exploit Weak Credentials and Internet-Facing PLCs to Breach Water Utilities" tabindex="0" role="link" aria-label="Hackers Exploit Weak Credentials and Internet-Facing PLCs to Breach Water Utilities">
+  <div class="card-meta">
+    <span class="source-tag">Cyber Security News</span>
+    <span class="card-date">26/06/2026, 18:57:05</span>
+    
+  </div>
+  <div class="card-title">Hackers Exploit Weak Credentials and Internet-Facing PLCs to Breach Water Utilities</div>
+  <div class="actor-tags"><span class="badge badge-actor">Sandworm</span><span class="badge badge-actor">Volt Typhoon</span></div>
+  <div class="card-footer">
+    <a href="https://cybersecuritynews.com/hackers-exploit-weak-credentials-and-internet-facing-plcs/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
+  </div>
+</div>
+<div class="card" data-source="Cyber Security News" data-date="2026-06-26T12:43:11.000Z" data-link="https://cybersecuritynews.com/new-giftedcrook-chain-abuses-winrar-ads/" data-title="New GIFTEDCROOK Chain Abuses WinRAR ADS and Reflective Loading to Steal Browser Data" tabindex="0" role="link" aria-label="New GIFTEDCROOK Chain Abuses WinRAR ADS and Reflective Loading to Steal Browser Data">
+  <div class="card-meta">
+    <span class="source-tag">Cyber Security News</span>
+    <span class="card-date">26/06/2026, 18:13:11</span>
+    
+  </div>
+  <div class="card-title">New GIFTEDCROOK Chain Abuses WinRAR ADS and Reflective Loading to Steal Browser Data</div>
+  
+  <div class="card-footer">
+    <a href="https://cybersecuritynews.com/new-giftedcrook-chain-abuses-winrar-ads/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
 </div>
 <div class="card sev-critical" data-source="The Hacker News" data-date="2026-06-26T12:31:56.000Z" data-link="https://thehackernews.com/2026/06/cisa-adds-exploited-ptc-windchill-rce.html" data-title="CISA Adds Exploited PTC Windchill RCE Flaw to KEV as Web Shell Attacks Continue" tabindex="0" role="link" aria-label="CISA Adds Exploited PTC Windchill RCE Flaw to KEV as Web Shell Attacks Continue">
@@ -647,6 +826,7 @@ body {
     <span class="card-badges"><span class="badge badge-critical">Critical</span></span>
   </div>
   <div class="card-title">CISA Adds Exploited PTC Windchill RCE Flaw to KEV as Web Shell Attacks Continue</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/cisa-adds-exploited-ptc-windchill-rce.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -658,8 +838,21 @@ body {
     
   </div>
   <div class="card-title">Russian Intelligence Services Continue to Target Commercial Messaging Applications</div>
+  
   <div class="card-footer">
     <a href="https://www.cisa.gov/resources-tools/resources/russian-intelligence-services-continue-target-commercial-messaging-applications" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
+  </div>
+</div>
+<div class="card" data-source="Cyber Security News" data-date="2026-06-26T11:55:21.000Z" data-link="https://cybersecuritynews.com/hackers-leveraged-shopify-oder-tracking-app-shop/" data-title="Hackers Leveraged Shopify Oder-Tracking App Shop to Push Fake Invoices" tabindex="0" role="link" aria-label="Hackers Leveraged Shopify Oder-Tracking App Shop to Push Fake Invoices">
+  <div class="card-meta">
+    <span class="source-tag">Cyber Security News</span>
+    <span class="card-date">26/06/2026, 17:25:21</span>
+    
+  </div>
+  <div class="card-title">Hackers Leveraged Shopify Oder-Tracking App Shop to Push Fake Invoices</div>
+  
+  <div class="card-footer">
+    <a href="https://cybersecuritynews.com/hackers-leveraged-shopify-oder-tracking-app-shop/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
 </div>
 <div class="card sev-medium" data-source="The Hacker News" data-date="2026-06-26T11:51:35.000Z" data-link="https://thehackernews.com/2026/06/new-dirtyclone-linux-kernel-flaw-lets.html" data-title="New DirtyClone Linux Kernel Flaw Lets Local Users Gain Root via Cloned Packets" tabindex="0" role="link" aria-label="New DirtyClone Linux Kernel Flaw Lets Local Users Gain Root via Cloned Packets">
@@ -669,6 +862,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-43503</span><span class="badge badge-medium">Medium</span></span>
   </div>
   <div class="card-title">New DirtyClone Linux Kernel Flaw Lets Local Users Gain Root via Cloned Packets</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/new-dirtyclone-linux-kernel-flaw-lets.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -680,8 +874,21 @@ body {
     
   </div>
   <div class="card-title">Linux Foundation Unveils New Open Source Security Project Akrites</div>
+  
   <div class="card-footer">
     <a href="https://www.securityweek.com/linux-foundation-unveils-new-open-source-security-project-akrites/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
+  </div>
+</div>
+<div class="card" data-source="Security Affairs" data-date="2026-06-26T11:09:39.000Z" data-link="https://securityaffairs.com/194302/security/activist-phone-hacked-with-cellebrite-after-russia-contract-cancellation.html" data-title="Activist Phone Hacked With Cellebrite After Russia Contract Cancellation" tabindex="0" role="link" aria-label="Activist Phone Hacked With Cellebrite After Russia Contract Cancellation">
+  <div class="card-meta">
+    <span class="source-tag">Security Affairs</span>
+    <span class="card-date">26/06/2026, 16:39:39</span>
+    
+  </div>
+  <div class="card-title">Activist Phone Hacked With Cellebrite After Russia Contract Cancellation</div>
+  
+  <div class="card-footer">
+    <a href="https://securityaffairs.com/194302/security/activist-phone-hacked-with-cellebrite-after-russia-contract-cancellation.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
 </div>
 <div class="card" data-source="The Hacker News" data-date="2026-06-26T11:05:45.000Z" data-link="https://thehackernews.com/2026/06/miasma-malware-targets-npm-packages-and.html" data-title="Miasma Malware Targets npm Packages and GitHub Actions in Supply Chain Attack" tabindex="0" role="link" aria-label="Miasma Malware Targets npm Packages and GitHub Actions in Supply Chain Attack">
@@ -691,6 +898,7 @@ body {
     
   </div>
   <div class="card-title">Miasma Malware Targets npm Packages and GitHub Actions in Supply Chain Attack</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/miasma-malware-targets-npm-packages-and.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -702,8 +910,21 @@ body {
     <span class="card-badges"><span class="badge badge-critical">Critical</span></span>
   </div>
   <div class="card-title">Operation DragonReturn: China-Nexus Cyber Espionage Campaign Targeting Govt. of India/MoF Tax Infrastructure via Multi-Stage DcRAT Deployment</div>
+  
   <div class="card-footer">
     <a href="https://www.seqrite.com/blog/operation-dragonreturn-china-nexus-cyber-espionage-campaign-targeting-govt-of-india-mof-tax-infrastructure-via-multi-stage-dcrat-deployment/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
+  </div>
+</div>
+<div class="card sev-critical" data-source="Security Affairs" data-date="2026-06-26T10:35:38.000Z" data-link="https://securityaffairs.com/194290/security/u-s-cisa-adds-cisco-and-ptc-windchill-and-flexplm-flaws-to-its-known-exploited-vulnerabilities-catalog.html" data-title="U.S. CISA adds Cisco and PTC Windchill and FlexPLM flaws to its Known Exploited Vulnerabilities catalog" tabindex="0" role="link" aria-label="U.S. CISA adds Cisco and PTC Windchill and FlexPLM flaws to its Known Exploited Vulnerabilities catalog">
+  <div class="card-meta">
+    <span class="source-tag">Security Affairs</span>
+    <span class="card-date">26/06/2026, 16:05:38</span>
+    <span class="card-badges"><span class="badge badge-cve">CVE-2026-12569</span><span class="badge badge-critical">Critical</span></span>
+  </div>
+  <div class="card-title">U.S. CISA adds Cisco and PTC Windchill and FlexPLM flaws to its Known Exploited Vulnerabilities catalog</div>
+  
+  <div class="card-footer">
+    <a href="https://securityaffairs.com/194290/security/u-s-cisa-adds-cisco-and-ptc-windchill-and-flexplm-flaws-to-its-known-exploited-vulnerabilities-catalog.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
 </div>
 <div class="card" data-source="SecurityWeek" data-date="2026-06-26T08:55:08.000Z" data-link="https://www.securityweek.com/russian-apt-deploys-stockstay-backdoor-against-ukrainian-targets/" data-title="Russian APT Deploys ‘StockStay’ Backdoor Against Ukrainian Targets" tabindex="0" role="link" aria-label="Russian APT Deploys ‘StockStay’ Backdoor Against Ukrainian Targets">
@@ -713,8 +934,21 @@ body {
     
   </div>
   <div class="card-title">Russian APT Deploys ‘StockStay’ Backdoor Against Ukrainian Targets</div>
+  <div class="actor-tags"><span class="badge badge-actor">Turla</span></div>
   <div class="card-footer">
     <a href="https://www.securityweek.com/russian-apt-deploys-stockstay-backdoor-against-ukrainian-targets/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
+  </div>
+</div>
+<div class="card" data-source="Security Affairs" data-date="2026-06-26T08:24:32.000Z" data-link="https://securityaffairs.com/194266/security/third-party-breach-at-polymarket-leads-to-2-94m-crypto-theft.html" data-title="Third-Party Breach at Polymarket Leads to $2.94M Crypto Theft" tabindex="0" role="link" aria-label="Third-Party Breach at Polymarket Leads to $2.94M Crypto Theft">
+  <div class="card-meta">
+    <span class="source-tag">Security Affairs</span>
+    <span class="card-date">26/06/2026, 13:54:32</span>
+    
+  </div>
+  <div class="card-title">Third-Party Breach at Polymarket Leads to $2.94M Crypto Theft</div>
+  
+  <div class="card-footer">
+    <a href="https://securityaffairs.com/194266/security/third-party-breach-at-polymarket-leads-to-2-94m-crypto-theft.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
 </div>
 <div class="card sev-critical" data-source="SecurityWeek" data-date="2026-06-26T08:15:21.000Z" data-link="https://www.securityweek.com/first-ever-exploitation-of-ptc-windchill-vulnerability-discovered-in-the-wild/" data-title="First-Ever Exploitation of PTC Windchill Vulnerability Discovered in the Wild" tabindex="0" role="link" aria-label="First-Ever Exploitation of PTC Windchill Vulnerability Discovered in the Wild">
@@ -724,6 +958,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-12569</span><span class="badge badge-critical">Critical</span></span>
   </div>
   <div class="card-title">First-Ever Exploitation of PTC Windchill Vulnerability Discovered in the Wild</div>
+  
   <div class="card-footer">
     <a href="https://www.securityweek.com/first-ever-exploitation-of-ptc-windchill-vulnerability-discovered-in-the-wild/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -735,6 +970,7 @@ body {
     
   </div>
   <div class="card-title">Google Details Turla&#39;s New STOCKSTAY Backdoor Used in Ukraine Espionage Attacks</div>
+  <div class="actor-tags"><span class="badge badge-actor">Turla</span></div>
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/google-details-turlas-new-stockstay.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -746,6 +982,7 @@ body {
     
   </div>
   <div class="card-title">Poland busts SIM-swapping gang tied to millions in crypto theft</div>
+  
   <div class="card-footer">
     <a href="https://www.bleepingcomputer.com/news/security/poland-busts-sim-swapping-gang-tied-to-millions-in-crypto-theft/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -757,6 +994,7 @@ body {
     
   </div>
   <div class="card-title">CL-STA-1062 Targets Southeast Asian Governments and Critical Infrastructure</div>
+  
   <div class="card-footer">
     <a href="https://unit42.paloaltonetworks.com/cl-sta-1062-tinyrct-backdoor/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -768,6 +1006,7 @@ body {
     <span class="card-badges"><span class="badge badge-medium">Medium</span></span>
   </div>
   <div class="card-title">In Less Than 24 Hours, Attackers Weaponize Cisco CUCM Flaw</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/cyberattacks-data-breaches/less-than-24-hours-attackers-weaponize-cisco-cucm-flaw" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -779,6 +1018,7 @@ body {
     
   </div>
   <div class="card-title">Russian APT &#39;Gamaredon&#39; Upgrades Its Arsenal, Requiring New Defenses</div>
+  <div class="actor-tags"><span class="badge badge-actor">Gamaredon</span></div>
   <div class="card-footer">
     <a href="https://www.darkreading.com/threat-intelligence/russia-apt-gamaredon-arsenal-defense" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -790,6 +1030,7 @@ body {
     
   </div>
   <div class="card-title">EdTech Attackers Shift From Schools to Their Software Suppliers</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/cyberattacks-data-breaches/edtech-attackers-shift-schools-software-suppliers" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -801,6 +1042,7 @@ body {
     
   </div>
   <div class="card-title">Order-tracking app Shop abused to push callback phishing attacks</div>
+  
   <div class="card-footer">
     <a href="https://www.bleepingcomputer.com/news/security/order-tracking-app-shop-abused-to-push-callback-phishing-attacks/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -812,6 +1054,7 @@ body {
     
   </div>
   <div class="card-title">Local Police Collusion Hampers Crackdown on Asian Scam Centers</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/threat-intelligence/police-collusion-crackdown-asian-scam-centers" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -823,6 +1066,7 @@ body {
     
   </div>
   <div class="card-title">New macOS malware embeds fake errors to confuse AI analysis tools</div>
+  
   <div class="card-footer">
     <a href="https://www.bleepingcomputer.com/news/security/new-macos-malware-embeds-fake-errors-to-confuse-ai-analysis-tools/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -834,6 +1078,7 @@ body {
     
   </div>
   <div class="card-title">Bluekit phishing kit adopts browser-in-the-middle for login theft</div>
+  
   <div class="card-footer">
     <a href="https://www.bleepingcomputer.com/news/security/bluekit-phishing-kit-adopts-browser-in-the-middle-for-login-theft/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -845,6 +1090,7 @@ body {
     
   </div>
   <div class="card-title">The Four Elevations of Effective Fraud Prevention</div>
+  
   <div class="card-footer">
     <a href="https://www.bleepingcomputer.com/news/security/the-four-elevations-of-effective-fraud-prevention/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -856,6 +1102,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-12569</span><span class="badge badge-critical">Critical</span></span>
   </div>
   <div class="card-title">CISA Adds Two Known Exploited Vulnerabilities to Catalog</div>
+  
   <div class="card-footer">
     <a href="https://www.cisa.gov/news-events/alerts/2026/06/25/cisa-adds-two-known-exploited-vulnerabilities-catalog" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -867,6 +1114,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-28701</span><span class="badge badge-high">High</span></span>
   </div>
   <div class="card-title">Daktronics Controller Firmware</div>
+  
   <div class="card-footer">
     <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-176-04" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -878,6 +1126,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-12578</span><span class="badge badge-medium">Medium</span></span>
   </div>
   <div class="card-title">Delta Electronics DTM Soft</div>
+  
   <div class="card-footer">
     <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-176-06" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -889,6 +1138,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-12473</span><span class="badge badge-medium">Medium</span></span>
   </div>
   <div class="card-title">OHIF Viewers DICOM</div>
+  
   <div class="card-footer">
     <a href="https://www.cisa.gov/news-events/ics-medical-advisories/icsma-26-176-02" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -900,6 +1150,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-56445</span><span class="badge badge-high">High</span></span>
   </div>
   <div class="card-title">pydicom pynetdicom Library</div>
+  
   <div class="card-footer">
     <a href="https://www.cisa.gov/news-events/ics-medical-advisories/icsma-26-176-01" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -911,6 +1162,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-9716</span></span>
   </div>
   <div class="card-title">Schneider Electric PowerLogic P7</div>
+  
   <div class="card-footer">
     <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-176-07" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -922,6 +1174,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-12897</span></span>
   </div>
   <div class="card-title">Horner Automation Cscape</div>
+  
   <div class="card-footer">
     <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-176-03" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -933,6 +1186,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-11833</span></span>
   </div>
   <div class="card-title">Yokogawa FAST/TOOLS and CI Server</div>
+  
   <div class="card-footer">
     <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-176-01" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -944,6 +1198,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2016-20017</span><span class="badge badge-critical">Critical</span></span>
   </div>
   <div class="card-title">What do Ports Hear When Nobody&#39;s Listening&amp;#x3f; An Assessment of Automated Cybercrime &amp;#x5b;Guest Diary&amp;#x5d;, (Wed, Jun 24th)</div>
+  
   <div class="card-footer">
     <a href="https://isc.sans.edu/diary/rss/33104" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -955,6 +1210,7 @@ body {
     <span class="card-badges"><span class="badge badge-high">High</span></span>
   </div>
   <div class="card-title">Introduction to COM usage by Windows threats</div>
+  
   <div class="card-footer">
     <a href="https://blog.talosintelligence.com/introduction-to-com-usage-by-windows-threats/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -966,6 +1222,7 @@ body {
     <span class="card-badges"><span class="badge badge-high">High</span></span>
   </div>
   <div class="card-title">Europe Evolves Into Ransomware&#39;s Favorite Region</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/cybersecurity-analytics/europe-evolves-ransomware-favorite-region" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -977,6 +1234,7 @@ body {
     
   </div>
   <div class="card-title">New Gaslight macOS Malware Uses Prompt Injection to Disrupt AI-Assisted Analysis</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/new-gaslight-macos-malware-uses-prompt.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -988,6 +1246,7 @@ body {
     
   </div>
   <div class="card-title">New Mistic Backdoor Linked to KongTuke in ClickFix and ModeloRAT Campaigns</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/new-mistic-backdoor-linked-to-kongtuke.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -999,6 +1258,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-20245</span><span class="badge badge-critical">Critical</span></span>
   </div>
   <div class="card-title">Cisco Catalyst SD-WAN Zero-Day CVE-2026-20245 Exploited to Gain Root Access</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/cisco-catalyst-sd-wan-zero-day-cve-2026.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1010,6 +1270,7 @@ body {
     
   </div>
   <div class="card-title">Cryptojacking Campaign Targeting K8s Clusters (Campaign)</div>
+  
   <div class="card-footer">
     <a href="https://threats.wiz.io/all-incidents/cryptojacking-campaign-targeting-k8s-clusters" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1021,6 +1282,7 @@ body {
     
   </div>
   <div class="card-title">Attackers Hit Cisco SD-WAN Flaw 2 Months Before Disclosure</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/cyberattacks-data-breaches/attackers-hit-cisco-sd-wan-flaw-2-months-before-disclosure" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1032,6 +1294,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2025-67038</span><span class="badge badge-critical">Critical</span></span>
   </div>
   <div class="card-title">CISA Warns Critical Lantronix EDS5000 Flaw Is Being Actively Exploited</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/cisa-warns-critical-lantronix-eds5000.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1043,6 +1306,7 @@ body {
     
   </div>
   <div class="card-title">More Malicious OpenClaw Skills Threaten AI Supply Chain</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/cyber-risk/malicious-openclaw-skills-clawhub-threaten-ai-supply-chain" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1054,6 +1318,7 @@ body {
     <span class="card-badges"><span class="badge badge-high">High</span></span>
   </div>
   <div class="card-title">Amadey and StealC Malware Network Disrupted, 27M Stolen Credentials Recovered</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/amadey-and-stealc-malware-network.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1065,6 +1330,7 @@ body {
     
   </div>
   <div class="card-title">Cordyceps CI/CD Flaws Expose 300+ GitHub Repositories to Supply-Chain Attacks</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/cordyceps-cicd-flaws-expose-300-github.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1076,6 +1342,7 @@ body {
     
   </div>
   <div class="card-title">Apple&#39;s MacOS Gap Lets Users Disable Security Tools</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/application-security/apple-macos-security-gap-users-disable-security-tools" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1087,6 +1354,7 @@ body {
     
   </div>
   <div class="card-title">Using SASE in a Modern TIC 3.0 Solution</div>
+  
   <div class="card-footer">
     <a href="https://www.cisa.gov/resources-tools/resources/using-sase-modern-tic-30-solution" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1098,6 +1366,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-20230</span><span class="badge badge-high">High</span></span>
   </div>
   <div class="card-title">Cisco Unified CM Flaw Exploited After PoC Reveals File-Write Path to Root</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/cisco-unified-cm-flaw-exploited-after.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1109,6 +1378,7 @@ body {
     
   </div>
   <div class="card-title">Linux Process Name Masquerading, (Wed, Jun 24th)</div>
+  
   <div class="card-footer">
     <a href="https://isc.sans.edu/diary/rss/33102" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1120,6 +1390,7 @@ body {
     
   </div>
   <div class="card-title">OpenClaw’s Skill Marketplace and the Emerging AI Supply Chain Threat</div>
+  
   <div class="card-footer">
     <a href="https://unit42.paloaltonetworks.com/openclaw-ai-supply-chain-risk/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1131,6 +1402,7 @@ body {
     
   </div>
   <div class="card-title">Scope of Salesforce Attacks Expands as Icarus Leaks Data</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/cyberattacks-data-breaches/scope-salesforce-attacks-expands-icarus-leaks-data" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1142,6 +1414,7 @@ body {
     
   </div>
   <div class="card-title">FortiBleed Targeted FortiGate Firewalls in 110 Million-Credential Harvesting Operation</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/fortibleed-targeted-fortigate-firewalls.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1153,6 +1426,7 @@ body {
     <span class="card-badges"><span class="badge badge-high">High</span></span>
   </div>
   <div class="card-title">Scattered Spider Hackers Plead Guilty on Day 1 of Trial</div>
+  <div class="actor-tags"><span class="badge badge-actor">Scattered Spider</span></div>
   <div class="card-footer">
     <a href="https://krebsonsecurity.com/2026/06/scattered-spider-hackers-plead-guilty-on-day-1-of-trial/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1164,6 +1438,7 @@ body {
     
   </div>
   <div class="card-title">GitHub Updates actions/checkout to Block Common Pwn Request Attack Patterns</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/github-updates-actionscheckout-to-block.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1175,6 +1450,7 @@ body {
     
   </div>
   <div class="card-title">FortiBleed Attackers Turn Firewalls Into Credential Stealers as Heists Persist</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/cyberattacks-data-breaches/fortibleed-attackers-firewalls-credentials-stealers" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1186,6 +1462,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-1840</span></span>
   </div>
   <div class="card-title">Hubbell Aclara Metrum Cellular Web Interface</div>
+  
   <div class="card-footer">
     <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-174-07" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1197,6 +1474,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2025-7064</span></span>
   </div>
   <div class="card-title">ABB Freelance Security Lock</div>
+  
   <div class="card-footer">
     <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-174-05" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1208,6 +1486,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-46746</span></span>
   </div>
   <div class="card-title">Siemens SINEC INS</div>
+  
   <div class="card-footer">
     <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-174-04" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1219,6 +1498,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-31431</span></span>
   </div>
   <div class="card-title">Impact of Linux Kernel vulnerabilities on B&amp;R products</div>
+  
   <div class="card-footer">
     <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-174-06" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1230,6 +1510,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2025-15467</span><span class="badge badge-high">High</span></span>
   </div>
   <div class="card-title">Siemens Products using OpenSSL</div>
+  
   <div class="card-footer">
     <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-174-03" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1241,6 +1522,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2025-67038</span><span class="badge badge-critical">Critical</span></span>
   </div>
   <div class="card-title">CISA Adds Four Known Exploited Vulnerabilities to Catalog</div>
+  
   <div class="card-footer">
     <a href="https://www.cisa.gov/news-events/alerts/2026/06/23/cisa-adds-four-known-exploited-vulnerabilities-catalog" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1252,6 +1534,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2024-40766</span><span class="badge badge-critical">Critical</span></span>
   </div>
   <div class="card-title">CVE-2024-40766: The Patch Fixed the Bug. Nobody Fixed the Configuration., (Tue, Jun 23rd)</div>
+  
   <div class="card-footer">
     <a href="https://isc.sans.edu/diary/rss/33094" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1263,6 +1546,7 @@ body {
     
   </div>
   <div class="card-title">The Global Namespace Risk: Universal Bucket Hijacking Technique for Cloud Data Exfiltration</div>
+  
   <div class="card-footer">
     <a href="https://unit42.paloaltonetworks.com/cloud-bucket-hijacking-risks/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1274,6 +1558,7 @@ body {
     
   </div>
   <div class="card-title">DifyTap Bugs Let Attackers &#39;Wiretap&#39; AI Chat Histories</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/application-security/difytap-bugs-wiretap-ai-chat-histories" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1285,6 +1570,7 @@ body {
     
   </div>
   <div class="card-title">ShapedPlugin WordPress Pro Plugins Backdoored in Supply Chain Attack</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/shapedplugin-wordpress-pro-plugins.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1296,6 +1582,7 @@ body {
     
   </div>
   <div class="card-title">29-Year-Old Squid Proxy Bug &#39;Squidbleed&#39; Can Leak Cleartext HTTP Requests</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/29-year-old-squid-proxy-bug-squidbleed.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1307,6 +1594,7 @@ body {
     
   </div>
   <div class="card-title">Researchers Detail DifyTap Flaws in Dify That Could Expose AI Chats Across Tenants</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/researchers-detail-difytap-flaws-in.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1318,6 +1606,7 @@ body {
     
   </div>
   <div class="card-title">Crypto Heist Fueled by Elaborate Fake Reputation-Boosting Campaign</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/cyberattacks-data-breaches/crypto-heist-fake-reputation-boosting-campaign" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1329,6 +1618,7 @@ body {
     
   </div>
   <div class="card-title">He Thought He Was Secure; His Phone Number Was Stolen Anyway</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/cyber-risk/how-a-sim-swap-attack-led-to-a-near-account-takeover" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1340,6 +1630,7 @@ body {
     
   </div>
   <div class="card-title">Webshells Remain Popular, (Mon, Jun 22nd)</div>
+  
   <div class="card-footer">
     <a href="https://isc.sans.edu/diary/rss/33096" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1351,6 +1642,7 @@ body {
     
   </div>
   <div class="card-title">New OXLOADER Loader Uses Malicious Google Ads to Deliver CastleStealer</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/new-oxloader-loader-uses-malicious.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1362,6 +1654,7 @@ body {
     
   </div>
   <div class="card-title">Stop Your Legacy Infrastructure from Hijacking Your AI Agents</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/stop-your-legacy-infrastructure-from.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1373,6 +1666,7 @@ body {
     <span class="card-badges"><span class="badge badge-high">High</span></span>
   </div>
   <div class="card-title">⚡ Weekly Recap: Browser Bugs, EDR Killers, TV Botnet, OpenBSD Flaw, Android Trojan, and More</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/weekly-recap-browser-bugs-edr-killers.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1384,6 +1678,7 @@ body {
     
   </div>
   <div class="card-title">What is Digital Risk Protection Service for Enterprises: A Complete Guide</div>
+  <div class="actor-tags"><span class="badge badge-actor">Play</span></div>
   <div class="card-footer">
     <a href="https://www.seqrite.com/blog/what-is-digital-risk-protection-service-for-enterprises-a-complete-guide/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1395,6 +1690,7 @@ body {
     
   </div>
   <div class="card-title">AryStinger Malware Infects 4,300 Legacy Routers to Build Reconnaissance Proxy Network</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/arystinger-malware-infects-4300-legacy.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1406,6 +1702,7 @@ body {
     <span class="card-badges"><span class="badge badge-high">High</span></span>
   </div>
   <div class="card-title">INTERPOL Warns Phishing, Ransomware, and AI Scams Are Rising Across Asia-Pacific</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/interpol-warns-phishing-ransomware-and.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1417,6 +1714,7 @@ body {
     
   </div>
   <div class="card-title">94% of Organizations Report Cloud Breaches: CrowdStrike State of CDR Survey</div>
+  
   <div class="card-footer">
     <a href="https://www.crowdstrike.com/en-us/blog/crowdstrike-state-of-cdr-survey-key-takeaways/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1428,6 +1726,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-4020</span><span class="badge badge-high">High</span></span>
   </div>
   <div class="card-title">Hackers Exploit Gravity SMTP WordPress Plugin Bug to Expose API Keys</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/hackers-exploit-gravity-smtp-wordpress.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1439,6 +1738,7 @@ body {
     
   </div>
   <div class="card-title">Unpatchable &#39;usbliter8&#39; Exploit Breaks Apple A12 and A13 SecureROM Boot Chain</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/unpatchable-usbliter8-exploit-breaks.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1450,6 +1750,7 @@ body {
     <span class="card-badges"><span class="badge badge-high">High</span></span>
   </div>
   <div class="card-title">The Gentlemen RaaS Uses GentleKiller EDR Framework Targeting 400 Security Processes</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/the-gentlemen-raas-uses-gentlekiller.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1461,6 +1762,7 @@ body {
     <span class="card-badges"><span class="badge badge-high">High</span></span>
   </div>
   <div class="card-title">AutoJack Attack Lets One Web Page Hijack AI Agent for Host Code Execution</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/autojack-attack-lets-one-web-page.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1472,6 +1774,7 @@ body {
     
   </div>
   <div class="card-title">Operation Endgame Disrupts SocGholish Servers, Cleans 14,971 WordPress Sites</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/operation-endgame-disrupts-socgholish.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1483,6 +1786,7 @@ body {
     
   </div>
   <div class="card-title">From 114,000 OSS Artifacts to 100 Analyst Reviews a Day with THOR Thunderstorm</div>
+  
   <div class="card-footer">
     <a href="https://www.nextron-systems.com/2026/06/19/oss-artifact-scanning-at-scale/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1494,6 +1798,7 @@ body {
     
   </div>
   <div class="card-title">CISA Warns Fortinet Customers as FortiBleed Hits 86,644 FortiGate Devices</div>
+  
   <div class="card-footer">
     <a href="https://thehackernews.com/2026/06/cisa-warns-fortinet-customers-as.html" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1505,6 +1810,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-42530</span><span class="badge badge-high">High</span></span>
   </div>
   <div class="card-title">CVE-2026-42530: Critical NGINX HTTP/3 Flaw Can Trigger DoS and Possible RCE</div>
+  
   <div class="card-footer">
     <a href="https://socprime.com/blog/cve-2026-42530-critical-nginx-http-3-flaw-can-trigger-dos-and-possible-rce/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1516,6 +1822,7 @@ body {
     <span class="card-badges"><span class="badge badge-medium">Medium</span></span>
   </div>
   <div class="card-title">Threat Actors Weaponizing RAR Archives to Target Thailand’s Healthcare Sector</div>
+  
   <div class="card-footer">
     <a href="https://www.seqrite.com/blog/threat-actors-weaponizing-rar-archives-to-target-thailands-healthcare-sector/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1527,6 +1834,7 @@ body {
     
   </div>
   <div class="card-title">eBanking Phishing Delivered Through IPv4-Mapped IPv6 Address, (Fri, Jun 19th)</div>
+  
   <div class="card-footer">
     <a href="https://isc.sans.edu/diary/rss/33090" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1538,6 +1846,7 @@ body {
     
   </div>
   <div class="card-title">Novo Nordisk Breach Highlights Software Development Pipeline Risk</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/cyber-risk/novo-nordisk-breach-exposes-dev-pipeline-risk" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1549,6 +1858,7 @@ body {
     
   </div>
   <div class="card-title">FIFA Bug Exposes World Cup Streams to Remote Takeover</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/application-security/fifa-bug-world-cup-streams-remote-takeover" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1560,6 +1870,7 @@ body {
     
   </div>
   <div class="card-title">‘Popa’ Botnet Linked to Publicly-Traded Israeli Firm</div>
+  
   <div class="card-footer">
     <a href="https://krebsonsecurity.com/2026/06/popa-botnet-linked-to-publicly-traded-israeli-firm/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1571,6 +1882,7 @@ body {
     
   </div>
   <div class="card-title">Salesforce Data Thefts Continue via Klue App Compromise</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/cyberattacks-data-breaches/salesforce-data-thefts-klue-app-compromise" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1582,6 +1894,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-8806</span></span>
   </div>
   <div class="card-title">Mitsubishi Electric Co.&#39;s MELSEC iQ-F Series FX5-ENET/IP Ethernet Module</div>
+  
   <div class="card-footer">
     <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-169-06" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1593,6 +1906,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-8805</span></span>
   </div>
   <div class="card-title">Mitsubishi Electric MELSEC iQ-F Series</div>
+  
   <div class="card-footer">
     <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-169-05" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1604,6 +1918,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2025-13036</span></span>
   </div>
   <div class="card-title">Rockwell Automation FactoryTalk Historian Site Edition</div>
+  
   <div class="card-footer">
     <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-169-03" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1615,6 +1930,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-12390</span></span>
   </div>
   <div class="card-title">AzeoTech DAQFactory (Update A)</div>
+  
   <div class="card-footer">
     <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-169-02" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1626,6 +1942,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-50034</span></span>
   </div>
   <div class="card-title">Apollo Pharmacy Blood Glucose Monitoring System APG-01 BT</div>
+  
   <div class="card-footer">
     <a href="https://www.cisa.gov/news-events/ics-medical-advisories/icsma-26-169-01" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1637,6 +1954,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-40624</span><span class="badge badge-high">High</span></span>
   </div>
   <div class="card-title">AVer PTC cameras</div>
+  
   <div class="card-footer">
     <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-169-01" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1648,6 +1966,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-6865</span></span>
   </div>
   <div class="card-title">Schneider Electric EasyLogic T150 and Saitel DP</div>
+  
   <div class="card-footer">
     <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-169-04" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1659,6 +1978,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-20253</span><span class="badge badge-critical">Critical</span></span>
   </div>
   <div class="card-title">CISA Adds One Known Exploited Vulnerability to Catalog</div>
+  
   <div class="card-footer">
     <a href="https://www.cisa.gov/news-events/alerts/2026/06/18/cisa-adds-one-known-exploited-vulnerability-catalog" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1670,6 +1990,7 @@ body {
     
   </div>
   <div class="card-title">CISA Urges Hardening Fortinet Devices After Reports of Credential Exposure</div>
+  
   <div class="card-footer">
     <a href="https://www.cisa.gov/news-events/alerts/2026/06/18/cisa-urges-hardening-fortinet-devices-after-reports-credential-exposure" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1681,6 +2002,7 @@ body {
     
   </div>
   <div class="card-title">Operation FanTrap: Inside the FIFA 2026 Fraud Ecosystem</div>
+  <div class="actor-tags"><span class="badge badge-actor">Play</span></div>
   <div class="card-footer">
     <a href="https://cyble.com/blog/operation-fantrap-fifa-2026-fraud-ecosystem/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1692,6 +2014,7 @@ body {
     
   </div>
   <div class="card-title">Klue Supply Chain Breach Leads to Salesforce Data Exfiltration (Incident)</div>
+  
   <div class="card-footer">
     <a href="https://threats.wiz.io/all-incidents/klue-supply-chain-breach-leads-to-salesforce-data-exfiltration" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1703,6 +2026,7 @@ body {
     <span class="card-badges"><span class="badge badge-high">High</span></span>
   </div>
   <div class="card-title">Claimed Twice: Five Reasons the Same Ransomware Victim Shows Up Under Two Flags</div>
+  
   <div class="card-footer">
     <a href="https://www.bitdefender.com/en-us/blog/businessinsights/claimed-twice-five-reasons-same-ransomware-victim-appears-under-two-flags" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1714,6 +2038,7 @@ body {
     <span class="card-badges"><span class="badge badge-high">High</span></span>
   </div>
   <div class="card-title">INC Ransomware Thrives by Mastering the Basics</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/cyberattacks-data-breaches/inc-ransomware-thrives-by-mastering-the-basics" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1725,6 +2050,7 @@ body {
     
   </div>
   <div class="card-title">Sweeping Credential-Harvesting Heist Compromises 30K+ Fortinet Devices</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/cyberattacks-data-breaches/sweeping-credential-harvesting-heist-compromises-30k-fortinet-devices" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1736,6 +2062,7 @@ body {
     <span class="card-badges"><span class="badge badge-high">High</span></span>
   </div>
   <div class="card-title">From Stars to Upvotes: Fake Reputation Fueling a Crypto Clipboard Hijacker</div>
+  
   <div class="card-footer">
     <a href="https://research.checkpoint.com/2026/from-stars-to-upvotes-fake-reputation-fueling-a-crypto-clipboard-hijacker/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1747,6 +2074,7 @@ body {
     
   </div>
   <div class="card-title">Mastra Packages Trojanized with Malicious Dependency (Campaign)</div>
+  
   <div class="card-footer">
     <a href="https://threats.wiz.io/all-incidents/mastra-packages-trojanized-with-malicious-dependency" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1758,6 +2086,7 @@ body {
     
   </div>
   <div class="card-title">Fileless Phantom Stealer Targets Browser Credentials</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/cyberattacks-data-breaches/fileless-phantom-stealer-targets-browser-credentials" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1769,6 +2098,7 @@ body {
     
   </div>
   <div class="card-title">SprySOCKS Windows Variant Abuses Kernel Drivers to Evade Detection</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/threat-intelligence/sprysocks-windows-variant-kernel-drivers" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1780,6 +2110,7 @@ body {
     
   </div>
   <div class="card-title">Rokarolla Android Trojan Levels Up to Full Device Control, Persistence</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/endpoint-security/rokarolla-android-trojan" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1791,6 +2122,7 @@ body {
     <span class="card-badges"><span class="badge badge-high">High</span></span>
   </div>
   <div class="card-title">&#39;Lorem Ipsum&#39; Malware Pivots to ClickFix Delivery</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/cyberattacks-data-breaches/lorem-ipsum-malware-clickfix-delivery" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1802,6 +2134,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-20262</span><span class="badge badge-critical">Critical</span></span>
   </div>
   <div class="card-title">CVE-2026-20262: Cisco SD-WAN Manager Zero-Day Can Lead to Root Privilege Escalation</div>
+  
   <div class="card-footer">
     <a href="https://socprime.com/blog/cve-2026-20262-cisco-sd-wan-manager-zero-day/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1813,6 +2146,7 @@ body {
     <span class="card-badges"><span class="badge badge-high">High</span></span>
   </div>
   <div class="card-title">Pickle in the Middle – Hijacking Vertex AI Model Uploads for Cross-Tenant RCE</div>
+  
   <div class="card-footer">
     <a href="https://unit42.paloaltonetworks.com/hijacking-vertex-ai-model/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1824,6 +2158,7 @@ body {
     
   </div>
   <div class="card-title">FortiBleed: Credential Compromise Campaign Targeting Fortinet Devices (Campaign)</div>
+  
   <div class="card-footer">
     <a href="https://threats.wiz.io/all-incidents/fortibleed-credential-compromise-campaign-targeting-fortinet-devices" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1835,6 +2170,7 @@ body {
     
   </div>
   <div class="card-title">Inside the Modern SOC: The 72-Minute Race</div>
+  
   <div class="card-footer">
     <a href="https://unit42.paloaltonetworks.com/soc-72-minute-race/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1846,6 +2182,7 @@ body {
     
   </div>
   <div class="card-title">HTTP/2 Bomb Attacks Put Telcos, Healthcare Orgs at Risk</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/vulnerabilities-threats/http-2-bomb-attacks-telcos-healthcare" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1857,6 +2194,7 @@ body {
     
   </div>
   <div class="card-title">Copilot &#39;SearchLeak&#39; Attack Allows 1-Click Data Theft</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/application-security/copilot-searchleak-attack-1-click-data-theft" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1868,6 +2206,7 @@ body {
     
   </div>
   <div class="card-title">The Beginning of the End of Social Engineering</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/cyberattacks-data-breaches/beginning-end-social-engineering" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1879,6 +2218,7 @@ body {
     <span class="card-badges"><span class="badge badge-cve">CVE-2026-35273</span><span class="badge badge-critical">Critical</span></span>
   </div>
   <div class="card-title">15th June – Threat Intelligence Report</div>
+  
   <div class="card-footer">
     <a href="https://research.checkpoint.com/2026/15th-june-threat-intelligence-report/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1890,6 +2230,7 @@ body {
     
   </div>
   <div class="card-title">CrowdStrike Announces Continuous Identity for AI Agents</div>
+  
   <div class="card-footer">
     <a href="https://www.crowdstrike.com/en-us/blog/crowdstrike-announces-continuous-identity-for-ai-agents/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1901,6 +2242,7 @@ body {
     <span class="card-badges"><span class="badge badge-critical">Critical</span></span>
   </div>
   <div class="card-title">ShinyHunters Uses Oracle Zero-Day to Rampage Higher Ed</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/vulnerabilities-threats/shinyhunters-oracle-zero-day-higher-ed" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1912,6 +2254,7 @@ body {
     
   </div>
   <div class="card-title">Phishing Attack Volume Down 20%, But Risk Still Rising</div>
+  
   <div class="card-footer">
     <a href="https://www.darkreading.com/cybersecurity-analytics/phishing-volume-down-20-risk-rising" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
@@ -1923,195 +2266,9 @@ body {
     
   </div>
   <div class="card-title">Atomic Arch: AUR Package Supply Chain Compromise Using Malicious npm Package (Campaign)</div>
+  
   <div class="card-footer">
     <a href="https://threats.wiz.io/all-incidents/atomic-arch-aur-package-supply-chain-compromise-using-malicious-npm-package" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
-  </div>
-</div>
-<div class="card" data-source="darkreading" data-date="2026-06-11T18:43:57.000Z" data-link="https://www.darkreading.com/vulnerabilities-threats/max-severity-ivanti-sentry-flaw-exploited-24-hours" data-title="Max-Severity Ivanti Flaw Exploited 24 Hours After Disclosure" tabindex="0" role="link" aria-label="Max-Severity Ivanti Flaw Exploited 24 Hours After Disclosure">
-  <div class="card-meta">
-    <span class="source-tag">darkreading</span>
-    <span class="card-date">12/06/2026, 00:13:57</span>
-    
-  </div>
-  <div class="card-title">Max-Severity Ivanti Flaw Exploited 24 Hours After Disclosure</div>
-  <div class="card-footer">
-    <a href="https://www.darkreading.com/vulnerabilities-threats/max-severity-ivanti-sentry-flaw-exploited-24-hours" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
-  </div>
-</div>
-<div class="card sev-high" data-source="Check Point Research" data-date="2026-06-11T13:37:11.000Z" data-link="https://research.checkpoint.com/2026/from-sqli-to-rce-exploiting-langgraphs-checkpointer/" data-title="From SQLi to RCE – Exploiting LangGraph’s Checkpointer" tabindex="0" role="link" aria-label="From SQLi to RCE – Exploiting LangGraph’s Checkpointer">
-  <div class="card-meta">
-    <span class="source-tag">Check Point Research</span>
-    <span class="card-date">11/06/2026, 19:07:11</span>
-    <span class="card-badges"><span class="badge badge-cve">CVE-2025-67644</span><span class="badge badge-high">High</span></span>
-  </div>
-  <div class="card-title">From SQLi to RCE – Exploiting LangGraph’s Checkpointer</div>
-  <div class="card-footer">
-    <a href="https://research.checkpoint.com/2026/from-sqli-to-rce-exploiting-langgraphs-checkpointer/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
-  </div>
-</div>
-<div class="card" data-source="SentinelLabs - We are hunters, reversers, exploit developers, and tinkerers shedding light on the world of malware, exploits, APTs, and cybercrime across all platforms." data-date="2026-06-11T13:00:59.000Z" data-link="https://www.sentinelone.com/labs/labscon25-replay-keynote-steps-to-an-ecology-of-cyber/" data-title="LABScon25 Replay | Keynote: Steps to an Ecology of Cyber" tabindex="0" role="link" aria-label="LABScon25 Replay | Keynote: Steps to an Ecology of Cyber">
-  <div class="card-meta">
-    <span class="source-tag">SentinelLabs - We are hunters, reversers, exploit developers, and tinkerers shedding light on the world of malware, exploits, APTs, and cybercrime across all platforms.</span>
-    <span class="card-date">11/06/2026, 18:30:59</span>
-    
-  </div>
-  <div class="card-title">LABScon25 Replay | Keynote: Steps to an Ecology of Cyber</div>
-  <div class="card-footer">
-    <a href="https://www.sentinelone.com/labs/labscon25-replay-keynote-steps-to-an-ecology-of-cyber/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
-  </div>
-</div>
-<div class="card" data-source="Unit 42" data-date="2026-06-11T10:00:24.000Z" data-link="https://unit42.paloaltonetworks.com/ai-agent-supply-chain-risks/" data-title="Trust No Skill: Integrity Verification for AI Agent Supply Chains" tabindex="0" role="link" aria-label="Trust No Skill: Integrity Verification for AI Agent Supply Chains">
-  <div class="card-meta">
-    <span class="source-tag">Unit 42</span>
-    <span class="card-date">11/06/2026, 15:30:24</span>
-    
-  </div>
-  <div class="card-title">Trust No Skill: Integrity Verification for AI Agent Supply Chains</div>
-  <div class="card-footer">
-    <a href="https://unit42.paloaltonetworks.com/ai-agent-supply-chain-risks/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
-  </div>
-</div>
-<div class="card sev-high" data-source="Business Insights Cybersecurity Blog by Bitdefender" data-date="2026-06-10T19:32:02.000Z" data-link="https://www.bitdefender.com/en-us/blog/businessinsights/bitdefender-threat-debrief-june-2026" data-title="Bitdefender Threat Debrief | June 2026" tabindex="0" role="link" aria-label="Bitdefender Threat Debrief | June 2026">
-  <div class="card-meta">
-    <span class="source-tag">Business Insights Cybersecurity Blog by Bitdefender</span>
-    <span class="card-date">11/06/2026, 01:02:02</span>
-    <span class="card-badges"><span class="badge badge-high">High</span></span>
-  </div>
-  <div class="card-title">Bitdefender Threat Debrief | June 2026</div>
-  <div class="card-footer">
-    <a href="https://www.bitdefender.com/en-us/blog/businessinsights/bitdefender-threat-debrief-june-2026" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
-  </div>
-</div>
-<div class="card sev-critical" data-source="Krebs on Security" data-date="2026-06-09T22:07:28.000Z" data-link="https://krebsonsecurity.com/2026/06/a-record-breaking-patch-tuesday-for-june-2026/" data-title="A Record-Breaking Patch Tuesday for June 2026" tabindex="0" role="link" aria-label="A Record-Breaking Patch Tuesday for June 2026">
-  <div class="card-meta">
-    <span class="source-tag">Krebs on Security</span>
-    <span class="card-date">10/06/2026, 03:37:28</span>
-    <span class="card-badges"><span class="badge badge-cve">CVE-2026-49160</span><span class="badge badge-critical">Critical</span></span>
-  </div>
-  <div class="card-title">A Record-Breaking Patch Tuesday for June 2026</div>
-  <div class="card-footer">
-    <a href="https://krebsonsecurity.com/2026/06/a-record-breaking-patch-tuesday-for-june-2026/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
-  </div>
-</div>
-<div class="card" data-source="Unit 42" data-date="2026-06-09T22:00:21.000Z" data-link="https://unit42.paloaltonetworks.com/cloud-logging-defense-evasion/" data-title="Blinding the Watchmen: Abusing Cloud Logging Services for Defense Evasion and Visibility" tabindex="0" role="link" aria-label="Blinding the Watchmen: Abusing Cloud Logging Services for Defense Evasion and Visibility">
-  <div class="card-meta">
-    <span class="source-tag">Unit 42</span>
-    <span class="card-date">10/06/2026, 03:30:21</span>
-    
-  </div>
-  <div class="card-title">Blinding the Watchmen: Abusing Cloud Logging Services for Defense Evasion and Visibility</div>
-  <div class="card-footer">
-    <a href="https://unit42.paloaltonetworks.com/cloud-logging-defense-evasion/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
-  </div>
-</div>
-<div class="card sev-critical" data-source="SOC Prime" data-date="2026-06-09T18:44:17.000Z" data-link="https://socprime.com/blog/cve-2026-11645-chrome-zero-day-vulnerability-exploited-in-the-wild/" data-title="CVE-2026-11645: Chrome Zero-Day Vulnerability Exploited in the Wild" tabindex="0" role="link" aria-label="CVE-2026-11645: Chrome Zero-Day Vulnerability Exploited in the Wild">
-  <div class="card-meta">
-    <span class="source-tag">SOC Prime</span>
-    <span class="card-date">10/06/2026, 00:14:17</span>
-    <span class="card-badges"><span class="badge badge-cve">CVE-2026-11645</span><span class="badge badge-critical">Critical</span></span>
-  </div>
-  <div class="card-title">CVE-2026-11645: Chrome Zero-Day Vulnerability Exploited in the Wild</div>
-  <div class="card-footer">
-    <a href="https://socprime.com/blog/cve-2026-11645-chrome-zero-day-vulnerability-exploited-in-the-wild/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
-  </div>
-</div>
-<div class="card" data-source="Unit 42" data-date="2026-06-09T14:05:42.000Z" data-link="https://unit42.paloaltonetworks.com/active-exploitation-of-pan-os-cve-2026-0257/" data-title="Threat Brief: Active Exploitation of PAN-OS CVE-2026-0257" tabindex="0" role="link" aria-label="Threat Brief: Active Exploitation of PAN-OS CVE-2026-0257">
-  <div class="card-meta">
-    <span class="source-tag">Unit 42</span>
-    <span class="card-date">09/06/2026, 19:35:42</span>
-    <span class="card-badges"><span class="badge badge-cve">CVE-2026-0257</span></span>
-  </div>
-  <div class="card-title">Threat Brief: Active Exploitation of PAN-OS CVE-2026-0257</div>
-  <div class="card-footer">
-    <a href="https://unit42.paloaltonetworks.com/active-exploitation-of-pan-os-cve-2026-0257/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
-  </div>
-</div>
-<div class="card sev-high" data-source="Cloud Threat Landscape" data-date="2026-06-09T00:00:00.000Z" data-link="https://threats.wiz.io/all-incidents/servicenow-unauthenticated-access-incident" data-title="ServiceNow Unauthenticated Access Incident (Incident)" tabindex="0" role="link" aria-label="ServiceNow Unauthenticated Access Incident (Incident)">
-  <div class="card-meta">
-    <span class="source-tag">Cloud Threat Landscape</span>
-    <span class="card-date">09/06/2026, 05:30:00</span>
-    <span class="card-badges"><span class="badge badge-high">High</span></span>
-  </div>
-  <div class="card-title">ServiceNow Unauthenticated Access Incident (Incident)</div>
-  <div class="card-footer">
-    <a href="https://threats.wiz.io/all-incidents/servicenow-unauthenticated-access-incident" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
-  </div>
-</div>
-<div class="card" data-source="Unit 42" data-date="2026-06-08T23:00:45.000Z" data-link="https://unit42.paloaltonetworks.com/microsoft-teams-phishing/" data-title="When “Hi, This Is IT” Comes Through Microsoft Teams" tabindex="0" role="link" aria-label="When “Hi, This Is IT” Comes Through Microsoft Teams">
-  <div class="card-meta">
-    <span class="source-tag">Unit 42</span>
-    <span class="card-date">09/06/2026, 04:30:45</span>
-    
-  </div>
-  <div class="card-title">When “Hi, This Is IT” Comes Through Microsoft Teams</div>
-  <div class="card-footer">
-    <a href="https://unit42.paloaltonetworks.com/microsoft-teams-phishing/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
-  </div>
-</div>
-<div class="card sev-critical" data-source="Check Point Research" data-date="2026-06-08T14:47:59.000Z" data-link="https://research.checkpoint.com/2026/8th-june-threat-intelligence-report/" data-title="8th June – Threat Intelligence Report" tabindex="0" role="link" aria-label="8th June – Threat Intelligence Report">
-  <div class="card-meta">
-    <span class="source-tag">Check Point Research</span>
-    <span class="card-date">08/06/2026, 20:17:59</span>
-    <span class="card-badges"><span class="badge badge-cve">CVE-2025-48595</span><span class="badge badge-critical">Critical</span></span>
-  </div>
-  <div class="card-title">8th June – Threat Intelligence Report</div>
-  <div class="card-footer">
-    <a href="https://research.checkpoint.com/2026/8th-june-threat-intelligence-report/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
-  </div>
-</div>
-<div class="card sev-critical" data-source="SOC Prime" data-date="2026-06-05T15:22:25.000Z" data-link="https://socprime.com/blog/cve-2026-20245-analysis/" data-title="CVE-2026-20245: Cisco SD-WAN Manager Zero-Day Enables Root Command Execution" tabindex="0" role="link" aria-label="CVE-2026-20245: Cisco SD-WAN Manager Zero-Day Enables Root Command Execution">
-  <div class="card-meta">
-    <span class="source-tag">SOC Prime</span>
-    <span class="card-date">05/06/2026, 20:52:25</span>
-    <span class="card-badges"><span class="badge badge-cve">CVE-2026-20245</span><span class="badge badge-critical">Critical</span></span>
-  </div>
-  <div class="card-title">CVE-2026-20245: Cisco SD-WAN Manager Zero-Day Enables Root Command Execution</div>
-  <div class="card-footer">
-    <a href="https://socprime.com/blog/cve-2026-20245-analysis/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
-  </div>
-</div>
-<div class="card" data-source="SOC Prime" data-date="2026-06-05T15:11:00.000Z" data-link="https://socprime.com/blog/cve-2026-49975-analysis/" data-title="CVE-2026-49975: HTTP/2 Bomb Attack Can Knock Web Servers Offline in Seconds" tabindex="0" role="link" aria-label="CVE-2026-49975: HTTP/2 Bomb Attack Can Knock Web Servers Offline in Seconds">
-  <div class="card-meta">
-    <span class="source-tag">SOC Prime</span>
-    <span class="card-date">05/06/2026, 20:41:00</span>
-    <span class="card-badges"><span class="badge badge-cve">CVE-2026-49975</span></span>
-  </div>
-  <div class="card-title">CVE-2026-49975: HTTP/2 Bomb Attack Can Knock Web Servers Offline in Seconds</div>
-  <div class="card-footer">
-    <a href="https://socprime.com/blog/cve-2026-49975-analysis/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
-  </div>
-</div>
-<div class="card" data-source="Seqrite Labs" data-date="2026-06-05T09:34:54.000Z" data-link="https://www.seqrite.com/blog/how-digital-risk-protection-helps-defend-your-brand-reputation/" data-title="How Digital Risk Protection Helps Defend Your Brand Reputation" tabindex="0" role="link" aria-label="How Digital Risk Protection Helps Defend Your Brand Reputation">
-  <div class="card-meta">
-    <span class="source-tag">Seqrite Labs</span>
-    <span class="card-date">05/06/2026, 15:04:54</span>
-    
-  </div>
-  <div class="card-title">How Digital Risk Protection Helps Defend Your Brand Reputation</div>
-  <div class="card-footer">
-    <a href="https://www.seqrite.com/blog/how-digital-risk-protection-helps-defend-your-brand-reputation/" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
-  </div>
-</div>
-<div class="card" data-source="Cloud Threat Landscape" data-date="2026-06-05T00:00:00.000Z" data-link="https://threats.wiz.io/all-incidents/teampcp-adds-malware-to-multiple-microsoft-linked-github-projects" data-title="TeamPCP adds Malware to Multiple Microsoft-Linked GitHub Projects (Campaign)" tabindex="0" role="link" aria-label="TeamPCP adds Malware to Multiple Microsoft-Linked GitHub Projects (Campaign)">
-  <div class="card-meta">
-    <span class="source-tag">Cloud Threat Landscape</span>
-    <span class="card-date">05/06/2026, 05:30:00</span>
-    
-  </div>
-  <div class="card-title">TeamPCP adds Malware to Multiple Microsoft-Linked GitHub Projects (Campaign)</div>
-  <div class="card-footer">
-    <a href="https://threats.wiz.io/all-incidents/teampcp-adds-malware-to-multiple-microsoft-linked-github-projects" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
-  </div>
-</div>
-<div class="card" data-source="Proofpoint News Feed" data-date="2026-06-04T10:05:27.000Z" data-link="https://www.proofpoint.com/us/newsroom/news/china-linked-ta4922-expands-phishing-attacks-uk-germany-italy-and-south-africa" data-title="China-Linked TA4922 Expands Phishing Attacks to U.K., Germany, Italy, and South Africa" tabindex="0" role="link" aria-label="China-Linked TA4922 Expands Phishing Attacks to U.K., Germany, Italy, and South Africa">
-  <div class="card-meta">
-    <span class="source-tag">Proofpoint News Feed</span>
-    <span class="card-date">04/06/2026, 15:35:27</span>
-    
-  </div>
-  <div class="card-title">China-Linked TA4922 Expands Phishing Attacks to U.K., Germany, Italy, and South Africa</div>
-  <div class="card-footer">
-    <a href="https://www.proofpoint.com/us/newsroom/news/china-linked-ta4922-expands-phishing-attacks-uk-germany-italy-and-south-africa" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
 </div></div>
   </main>
@@ -2290,6 +2447,33 @@ window.addEventListener('scroll', () => {
   fab.classList.toggle('show', window.scrollY > 500);
 }, { passive: true });
 fab.addEventListener('click', e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+/* ── AUTO-REFRESH every 30 min ── */
+(function autoRefresh() {
+  const INTERVAL = 30 * 60 * 1000;
+  let timer = setTimeout(doRefresh, INTERVAL);
+  const indicator = document.getElementById('refresh-countdown');
+
+  // countdown display
+  let remaining = INTERVAL;
+  const tick = setInterval(() => {
+    remaining -= 1000;
+    if (remaining <= 0) { clearInterval(tick); return; }
+    const m = Math.floor(remaining / 60000);
+    const s = Math.floor((remaining % 60000) / 1000);
+    if (indicator) indicator.textContent = `Refresh in ${m}:${s.toString().padStart(2,'0')}`;
+  }, 1000);
+
+  function doRefresh() {
+    clearInterval(tick);
+    if (indicator) indicator.textContent = 'Refreshing…';
+    window.location.reload();
+  }
+
+  // manual refresh button
+  const btn = document.getElementById('btn-refresh');
+  if (btn) btn.addEventListener('click', () => { clearTimeout(timer); doRefresh(); });
+})();
 </script>
 </body>
 </html>
