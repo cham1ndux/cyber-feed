@@ -70,16 +70,17 @@ const itemHtml = items.map(i => {
   const badges = [
     i.cve ? `<span class="badge badge-cve">${escapeHtml(i.cve)}</span>` : "",
     i.sev ? `<span class="badge badge-${i.sev}">${cap(i.sev)}</span>` : ""
-  ].join(" ");
-  return `<div class="card${i.sev ? ` sev-${i.sev}` : ""}" data-source="${escapeAttr(i.source || "")}" data-date="${escapeAttr(i.pubDate || "")}" data-link="${escapeAttr(i.link)}" tabindex="0" role="link" aria-label="${escapeAttr(i.title)}">
-  <div class="meta">
-    ${escapeHtml(i.source || "")} — ${escapeHtml(dateStr)}
+  ].filter(Boolean).join("");
+  return `<div class="card${i.sev ? ` sev-${i.sev}` : ""}" data-source="${escapeAttr(i.source || "")}" data-date="${escapeAttr(i.pubDate || "")}" data-link="${escapeAttr(i.link)}" data-title="${escapeAttr(i.title)}" tabindex="0" role="link" aria-label="${escapeAttr(i.title)}">
+  <div class="card-meta">
+    <span class="source-tag">${escapeHtml(i.source || "Unknown")}</span>
+    <span class="card-date">${escapeHtml(dateStr)}</span>
+    ${badges ? `<span class="card-badges">${badges}</span>` : ""}
   </div>
-  <h2 class="title">
-    ${escapeHtml(i.title)}
-    <span class="badges">${badges}</span>
-    <a href="${escapeAttr(i.link)}" target="_blank" rel="noopener" class="click-here">Click here</a>
-  </h2>
+  <div class="card-title">${escapeHtml(i.title)}</div>
+  <div class="card-footer">
+    <a href="${escapeAttr(i.link)}" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
+  </div>
 </div>`;
 }).join("\n");
 
