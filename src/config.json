@@ -35,7 +35,9 @@
     "https://gbhackers.com/feed/",
     "https://www.bitdefender.com/nuxt/api/en-us/rss/businessinsights/threat-research/",
     "https://cyble.com/feed/",
-    "https://socprime.com/feed/"
+    "https://socprime.com/feed/",
+    "https://securityaffairs.com/feed",
+    "https://socradar.io/blog/feed"
   ],
 "include_keywords": [
   "CVE-",

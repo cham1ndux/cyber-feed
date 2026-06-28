@@ -20,6 +20,21 @@ function findCVE(text) {
   const m = text.match(/\bCVE-\d{4}-\d{4,7}\b/i);
   return m ? m[0].toUpperCase() : "";
 }
+const THREAT_ACTORS = [
+  "APT28","APT29","APT30","APT31","APT32","APT33","APT34","APT35","APT36","APT37","APT38","APT39","APT40","APT41","APT43",
+  "Lazarus","Kimsuky","Sandworm","Cozy Bear","Fancy Bear","Charming Kitten","Turla","Volt Typhoon","Salt Typhoon",
+  "Scattered Spider","BlackCat","ALPHV","LockBit","RansomHub","Play","Cl0p","Clop","BlackMatter","DarkSide",
+  "FIN7","FIN8","TA505","TA577","TA558","UNC2452","UNC3944","Midnight Blizzard","Forest Blizzard","Crimson Sandstorm",
+  "Muddled Libra","Blind Eagle","Mustang Panda","Earth Lusca","Gallium","HAFNIUM","DEV-0537","LAPSUS$",
+  "Dragon Bridge","Predatory Sparrow","Moses Staff","Agrius","MuddyWater","OilRig","Machete","SideCopy",
+  "Transparent Tribe","Patchwork","Sidewinder","Gamaredon","InvisiMole","Telebots"
+];
+
+function findThreatActors(text) {
+  const t = text;
+  return THREAT_ACTORS.filter(a => new RegExp(`\\b${a.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}\\b`, "i").test(t));
+}
+
 function scoreSeverity(text) {
   const t = text.toLowerCase();
   if (/\b(0-day|zero-day|actively exploited|in the wild|kev)\b/.test(t)) return "critical";
@@ -45,6 +60,7 @@ for (const r of results) {
 
     const cve = findCVE(title + " " + raw);
     const sev = scoreSeverity(title + " " + raw);
+    const actors = findThreatActors(title + " " + raw);
 
     seen.add(link);
     items.push({
@@ -54,6 +70,7 @@ for (const r of results) {
       pubDate: e.isoDate || e.pubDate || "",
       cve,
       sev,
+      actors,
       summary: strip(raw).slice(0, 180) + (raw ? "…" : "")
     });
   }
@@ -67,10 +84,15 @@ items = items.slice(0, MAX);
 const itemHtml = items.map(i => {
   const dt = i.pubDate ? new Date(i.pubDate) : new Date();
   const dateStr = dt.toLocaleString("en-GB", { hour12: false, timeZone: TZ });
+  const now = Date.now();
+  const pubMs = i.pubDate ? new Date(i.pubDate).getTime() : 0;
+  const isNew = pubMs && (now - pubMs) < 2 * 60 * 60 * 1000;
   const badges = [
+    isNew ? `<span class="badge badge-new">NEW</span>` : "",
     i.cve ? `<span class="badge badge-cve">${escapeHtml(i.cve)}</span>` : "",
     i.sev ? `<span class="badge badge-${i.sev}">${cap(i.sev)}</span>` : ""
   ].filter(Boolean).join("");
+  const actorTags = (i.actors || []).map(a => `<span class="badge badge-actor">${escapeHtml(a)}</span>`).join("");
   return `<div class="card${i.sev ? ` sev-${i.sev}` : ""}" data-source="${escapeAttr(i.source || "")}" data-date="${escapeAttr(i.pubDate || "")}" data-link="${escapeAttr(i.link)}" data-title="${escapeAttr(i.title)}" tabindex="0" role="link" aria-label="${escapeAttr(i.title)}">
   <div class="card-meta">
     <span class="source-tag">${escapeHtml(i.source || "Unknown")}</span>
@@ -78,6 +100,7 @@ const itemHtml = items.map(i => {
     ${badges ? `<span class="card-badges">${badges}</span>` : ""}
   </div>
   <div class="card-title">${escapeHtml(i.title)}</div>
+  ${actorTags ? `<div class="actor-tags">${actorTags}</div>` : ""}
   <div class="card-footer">
     <a href="${escapeAttr(i.link)}" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
   </div>
