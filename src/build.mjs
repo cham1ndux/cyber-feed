@@ -94,15 +94,15 @@ const itemHtml = items.map(i => {
   ].filter(Boolean).join("");
   const actorTags = (i.actors || []).map(a => `<span class="badge badge-actor">${escapeHtml(a)}</span>`).join("");
   return `<div class="card${i.sev ? ` sev-${i.sev}` : ""}" data-source="${escapeAttr(i.source || "")}" data-date="${escapeAttr(i.pubDate || "")}" data-link="${escapeAttr(i.link)}" data-title="${escapeAttr(i.title)}" tabindex="0" role="link" aria-label="${escapeAttr(i.title)}">
-  <div class="card-meta">
-    <span class="source-tag">${escapeHtml(i.source || "Unknown")}</span>
+  <div class="card-top">
+    <span class="src-badge">${escapeHtml(i.source || "Unknown")}</span>
     <span class="card-date">${escapeHtml(dateStr)}</span>
     ${badges ? `<span class="card-badges">${badges}</span>` : ""}
   </div>
   <div class="card-title">${escapeHtml(i.title)}</div>
-  ${actorTags ? `<div class="actor-tags">${actorTags}</div>` : ""}
-  <div class="card-footer">
-    <a href="${escapeAttr(i.link)}" target="_blank" rel="noopener" class="open-link">Open article ↗</a>
+  ${actorTags ? `<div class="actor-row">${actorTags}</div>` : ""}
+  <div class="card-foot">
+    <a href="${escapeAttr(i.link)}" target="_blank" rel="noopener" class="open-btn">Open article ↗</a>
   </div>
 </div>`;
 }).join("\n");
@@ -113,7 +113,7 @@ tpl = tpl
   .replaceAll("{{UPDATED}}", new Date().toLocaleString("en-GB", { hour12: false, timeZone: TZ }))
   .replaceAll("{{COUNT}}", String(items.length))
   .replace("{{ITEMS}}", itemHtml)
-  .replace("{{KEYWORDS}}", (cfg.include_keywords || []).map(k => `<span class="pill">${escapeHtml(k)}</span>`).join(" "));
+  .replace("{{KEYWORDS}}", (cfg.include_keywords || []).map(k => `<span class="kw-pill">${escapeHtml(k)}</span>`).join(" "));
 
 await fs.mkdir("dist", { recursive: true });
 await fs.writeFile("dist/index.html", tpl, "utf8");
